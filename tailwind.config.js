@@ -23,6 +23,7 @@ module.exports = {
         'success': 'rgb(var(--color-success))',
         'dark': 'rgb(var(--color-dark))',
         'muted': 'rgb(var(--color-muted))',
+        'body': 'rgb(var(--color-body))',
         gray: {
           DEFAULT: 'rgba(var(--color-gray))',
           25 : 'rgba(var(--color-gray-25))',

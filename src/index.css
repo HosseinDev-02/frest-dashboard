@@ -50,10 +50,12 @@
         --color-dark: 73 85 99;
         --color-gray: 38, 60, 85, 50%;
         --color-muted: 168 177 187;
+        --color-body: 103 119 136;
     }
 
     body {
         direction: rtl;
+        color: rgb(var(--color-body));
     }
 
 
@@ -63,5 +65,18 @@
 
     .sidebar-menu-text {
         @apply overflow-hidden transition-all duration-300 whitespace-nowrap text-ellipsis
+    }
+
+    #widgets-wrapper::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #widgets-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #widgets-wrapper::-webkit-scrollbar-thumb {
+        background: #d4d8dd;
+        border-radius: 5px;
     }
 }
