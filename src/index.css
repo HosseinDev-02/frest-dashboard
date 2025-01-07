@@ -53,6 +53,7 @@
         --color-muted: 168 177 187;
         --color-caption: 103 119 136;
         --color-title: 81 99 119;
+        --color-zinc: 212 216 221;
     }
 
     body {
@@ -78,7 +79,7 @@
     }
 
     #widgets-wrapper::-webkit-scrollbar-thumb {
-        background: #d4d8dd;
+        background: rgb(var(--color-zinc));
         border-radius: 5px;
     }
 }

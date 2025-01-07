@@ -25,6 +25,7 @@ module.exports = {
         'muted': 'rgb(var(--color-muted))',
         'caption': 'rgb(var(--color-caption))',
         'title': 'rgb(var(--color-title))',
+        'zinc': 'rgb(var(--color-zinc))',
         gray: {
           DEFAULT: 'rgba(var(--color-gray))',
           25 : 'rgba(var(--color-gray-25))',

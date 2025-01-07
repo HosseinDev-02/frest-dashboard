@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 export default function WidgetBox({children, title, caption, href}) {
     return (
         <Link
-            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
+            className='flex flex-col odd:border-b odd:border-b-zinc odd:border-l odd:border-l-zinc even:border-b even:border-b-zinc items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
             to={`${href ? href : '#'}`}>
                                             <span
                                                 className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>

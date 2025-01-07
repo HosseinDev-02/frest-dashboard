@@ -1,5 +1,5 @@
 import Symbols from "../Symbols";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from "react-icons/md";
 import {FaRegCalendarAlt} from "react-icons/fa";
 import {RiFileUserLine} from "react-icons/ri";
@@ -16,11 +16,12 @@ import {
     BiGridAlt,
     BiBell,
     BiX,
-    BiPlusCircle, BiEnvelopeOpen
+    BiPlusCircle, BiEnvelopeOpen, BiCreditCard, BiSupport, BiHelpCircle, BiPowerOff
 } from "react-icons/bi";
 import {Link} from "react-router-dom";
 import WidgetBox from "../Components/WidgetBox/WidgetBox";
 import NotificationBox from "../Components/NotificationBox/NotificationBox";
+import Overlay from "../Overlay/Overlay";
 
 export default function Index() {
 
@@ -32,6 +33,7 @@ export default function Index() {
     const [showSearchBox, setShowSearchBox] = useState(false)
     const [showWidgets, setShowWidgets] = useState(false)
     const [showNotifications, setShowNotifications] = useState(false)
+    const [showProfile, setShowProfile] = useState(false)
     const [notifications, setNotifications] = useState([
         {id: 1, title: 'تبریک می‌گوییم کلارک', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/1.png', time: '1 ساعت قبل', seen: false},
         {id: 2, title: 'پیام جدید', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/2.png', time: '2 ساعت و 49 دقیقه پیش', seen: true},
@@ -39,6 +41,8 @@ export default function Index() {
         {id: 4, title: 'برنامه مورد تایید قرار گرفت', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/5.png', time: 'دیروز', seen: true},
         {id: 5, title: 'گزارش ماهانه ایجاد شد', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/6.png', time: '2 روز پیش', seen: false}
     ])
+    const widgetsWrapper = useRef(null)
+    const notificationsWrapper = useRef(null)
 
 
 
@@ -324,7 +328,10 @@ export default function Index() {
                         <div className={`absolute left-0 right-0 transition-all duration-300 ${showSearchBox ? 'top-0' : '-top-[60px]'} py-2.5 px-8 z-10 bg-white`}>
                             <form className='flex items-center h-10 text-caption' action="#">
                                 <input className='outline-none w-full h-full font-IranYekan-Bold text-2sm py-2 pr-8' placeholder='جستجو...' type="text"/>
-                                <button onClick={() => setShowSearchBox(false)} className='flex items-center justify-center p-2 shrink-0'>
+                                <button onClick={(event) => {
+                                    event.preventDefault()
+                                    setShowSearchBox(false)
+                                }} className='flex items-center justify-center p-2 shrink-0'>
                                     <BiX size='24px'/>
                                 </button>
                             </form>
@@ -333,6 +340,8 @@ export default function Index() {
                             <a className='flex items-center justify-center w-10 h-10 text-caption' href="#">
                                 <BiMoon size='24px'/>
                             </a>
+
+                            {/* Widgets */}
                             <div className='flex items-center justify-center w-10 h-10 text-caption relative'>
                                 <span onClick={(e) => {
                                     e.preventDefault()
@@ -342,9 +351,10 @@ export default function Index() {
                                 </span>
                                 {/* Widgets Content Wrapper */}
                                 <div
-                                    className={`absolute left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    ref={widgetsWrapper}
+                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
-                                        className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-[#d4d8dd]'>
+                                        className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
                                             میانبرها
                                         </span>
@@ -371,17 +381,22 @@ export default function Index() {
                                     </div>
                                 </div>
                             </div>
+                            {/*  Widgets Overlay  */}
+                            <Overlay show={showWidgets} setShow={() => setShowWidgets(prevState => !prevState)}/>
+
+                            {/* Notifications */}
                             <div className='flex items-center justify-center w-10 h-10 text-caption relative'>
                                 <span onClick={() => setShowNotifications(prevState => !prevState)} className='flex items-center justify-center cursor-pointer'>
                                     <BiBell size='24px'/>
                                 <span
                                     className='bg-red text-white w-4 h-4 rounded-full flex items-center justify-center absolute top-1 left-1 font-IranYekan-Bold text-[9px]'>5</span>
                                 </span>
-                                {/* Widgets Content Wrapper */}
+                                {/* Notifications Content Wrapper */}
                                 <div
-                                    className={`absolute left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    ref={notificationsWrapper}
+                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
-                                        className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-[#d4d8dd]'>
+                                        className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
                                             اعلان ها
                                         </span>
@@ -389,7 +404,7 @@ export default function Index() {
                                             <BiEnvelopeOpen size='24px'/>
                                         </span>
                                     </div>
-                                    <div id='widgets-wrapper' className='flex flex-col divide-y divide-[#d4d8dd] overflow-y-auto h-[440px]'>
+                                    <div id='widgets-wrapper' className='flex flex-col divide-y divide-zinc overflow-y-auto h-[440px]'>
                                         {
                                             notifications.map(notification => (
                                                 <NotificationBox key={notification.id} notifications={notifications} setNotifications={setNotifications} {...notification}/>
@@ -398,18 +413,109 @@ export default function Index() {
                                     </div>
                                 </div>
                             </div>
-                            <a className='flex items-center justify-center w-10 h-10 mr-2.5 text-caption relative overflow-hidden'
-                               href="#">
-                                <img className='w-full h-full object-cover rounded-full' src="/images/avatars/1.png"
-                                     alt="user profile"/>
-                                <span
-                                    className='bg-success w-3 h-3 rounded-full border-2 border-white flex items-center justify-center absolute bottom-0 right-0 font-IranYekan-Bold'></span>
-                            </a>
+                            {/*  Notifications Overlay  */}
+                            <Overlay show={showNotifications} setShow={() => setShowNotifications(prevState => !prevState)}/>
+
+                            {/*  Profile  */}
+                            <div className='mr-2.5 text-caption relative py-2'>
+                                <div onClick={() => setShowProfile(prevState => !prevState)} className='flex items-center justify-center w-10 h-10 cursor-pointer relative'>
+                                    <img className='w-full h-full object-cover rounded-full' src="/images/avatars/1.png"
+                                         alt="user profile"/>
+                                    <span
+                                        className='bg-success w-3 h-3 rounded-full border-2 border-white flex items-center justify-center absolute bottom-0 right-0 font-IranYekan-Bold'></span>
+                                </div>
+                                <div
+                                    className={`absolute z-50 left-0 top-full w-[224px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showProfile ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+
+                                    <div className='border-b border-b-zinc py-1'>
+                                        <Link to='#' className='flex items-center gap-4 px-4 py-2 transition-colors duration-300 hover:bg-gray-light'>
+                                            <div className='w-10 h-10 relative'>
+                                                <img className='w-full h-full object-cover rounded-full'
+                                                     src="/images/avatars/1.png"
+                                                     alt="user profile"/>
+                                                <span
+                                                    className='bg-success w-3 h-3 rounded-full border-2 border-white flex items-center justify-center absolute bottom-0 right-0 font-IranYekan-Bold'></span>
+                                            </div>
+                                            <div className='flex flex-col items-start'>
+                                                <h6 className='font-IranYekan-Medium text-2sm'>
+                                                    جان اسنو
+                                                </h6>
+                                                <span className='text-2xs font-IranYekan-Medium'>
+                                                مدیر
+                                            </span>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                    <div className='border-b border-b-zinc py-1'>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiUser size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    پروفایل من
+                                                </span>
+                                        </Link>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <IoSettingsOutline size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    تنظیمات
+                                                </span>
+                                        </Link>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiCreditCard size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    صورتحساب
+                                                </span>
+                                        </Link>
+                                    </div>
+                                    <div className='py-1 border-b border-b-zinc'>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiSupport size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    راهنمایی
+                                                </span>
+                                        </Link>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiHelpCircle size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    سوالات متداول
+                                                </span>
+                                        </Link>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiDollar size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    قیمت گذاری
+                                                </span>
+                                        </Link>
+                                    </div>
+                                    <div className='py-1'>
+                                        <Link
+                                            className='flex items-center gap-2 py-2 px-4 hover:bg-gray-light transition-colors duration-300'
+                                            to='#'>
+                                            <BiPowerOff size='18px'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                    خروج
+                                                </span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            {/*  Profile Overlay  */}
+                            <Overlay show={showProfile} setShow={() => setShowProfile(prevState => !prevState)}/>
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
