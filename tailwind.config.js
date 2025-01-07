@@ -23,12 +23,14 @@ module.exports = {
         'success': 'rgb(var(--color-success))',
         'dark': 'rgb(var(--color-dark))',
         'muted': 'rgb(var(--color-muted))',
-        'body': 'rgb(var(--color-body))',
+        'caption': 'rgb(var(--color-caption))',
+        'title': 'rgb(var(--color-title))',
         gray: {
           DEFAULT: 'rgba(var(--color-gray))',
           25 : 'rgba(var(--color-gray-25))',
           50: 'rgba(var(--color-gray-50))',
           dark: 'rgba(var(--color-gray-dark))',
+          light: 'rgba(var(--color-gray-light))',
         }
       },
       fontFamily: {
@@ -40,7 +42,8 @@ module.exports = {
         'IranYekan-Bold': 'IranYekan Bold',
       },
       fontSize: {
-        '2sm': ['0.9375rem', '1.375rem']
+        '2xs': ['0.8125rem', '1.5rem'],
+        '2sm': ['0.9375rem', '1.375rem'],
       }
     },
   },

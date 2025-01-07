@@ -43,6 +43,7 @@
         --color-gray-dark: 38, 60, 85, 80%;
         --color-gray-25: 38, 60, 85, 2.5%;
         --color-gray-50: 38, 60, 85, 6%;
+        --color-gray-light: 242 243 245;
         --color-primary: 90 141 238;
         --color-secondary: 105 128 154;
         --color-success: 57 218 138;
@@ -50,12 +51,13 @@
         --color-dark: 73 85 99;
         --color-gray: 38, 60, 85, 50%;
         --color-muted: 168 177 187;
-        --color-body: 103 119 136;
+        --color-caption: 103 119 136;
+        --color-title: 81 99 119;
     }
 
     body {
         direction: rtl;
-        color: rgb(var(--color-body));
+        color: rgb(var(--color-caption));
     }
 
 

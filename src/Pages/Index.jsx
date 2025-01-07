@@ -1,6 +1,6 @@
 import Symbols from "../Symbols";
 import {useEffect, useState} from "react";
-import {MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowDown} from "react-icons/md";
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from "react-icons/md";
 import {FaRegCalendarAlt} from "react-icons/fa";
 import {RiFileUserLine} from "react-icons/ri";
 import {IoSettingsOutline} from "react-icons/io5";
@@ -16,9 +16,11 @@ import {
     BiGridAlt,
     BiBell,
     BiX,
-    BiPlusCircle
+    BiPlusCircle, BiEnvelopeOpen
 } from "react-icons/bi";
 import {Link} from "react-router-dom";
+import WidgetBox from "../Components/WidgetBox/WidgetBox";
+import NotificationBox from "../Components/NotificationBox/NotificationBox";
 
 export default function Index() {
 
@@ -28,7 +30,16 @@ export default function Index() {
     const [showUserProfileSubmenu, setShowUserProfileShow] = useState(false)
     const [showPanelSetting, setShowPanelSetting] = useState(false)
     const [showSearchBox, setShowSearchBox] = useState(false)
-    const [showWidgets, setShowWidgest] = useState(false)
+    const [showWidgets, setShowWidgets] = useState(false)
+    const [showNotifications, setShowNotifications] = useState(false)
+    const [notifications, setNotifications] = useState([
+        {id: 1, title: 'تبریک می‌گوییم کلارک', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/1.png', time: '1 ساعت قبل', seen: false},
+        {id: 2, title: 'پیام جدید', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/2.png', time: '2 ساعت و 49 دقیقه پیش', seen: true},
+        {id: 3, title: 'هورا! شما سفارش جدید دارید', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/4.png', time: '12 ساعت قبل', seen: false},
+        {id: 4, title: 'برنامه مورد تایید قرار گرفت', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/5.png', time: 'دیروز', seen: true},
+        {id: 5, title: 'گزارش ماهانه ایجاد شد', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/6.png', time: '2 روز پیش', seen: false}
+    ])
+
 
 
     useEffect(() => {
@@ -300,7 +311,7 @@ export default function Index() {
                         <a onClick={(event) => {
                             event.preventDefault()
                             setShowSearchBox(prevState => !prevState)
-                        }} className='flex items-center gap-2 text-[#677788]' href="#">
+                        }} className='flex items-center gap-2 text-caption' href="#">
                             <BiSearchAlt size='24px'/>
                             <span className='text-2sm font-IranYekan-Medium text-muted flex gap-0.5'>
                                 جستجو
@@ -311,7 +322,7 @@ export default function Index() {
                         </a>
                         {/*  Sidebar Search Box  */}
                         <div className={`absolute left-0 right-0 transition-all duration-300 ${showSearchBox ? 'top-0' : '-top-[60px]'} py-2.5 px-8 z-10 bg-white`}>
-                            <form className='flex items-center h-10 text-[#677788]' action="#">
+                            <form className='flex items-center h-10 text-caption' action="#">
                                 <input className='outline-none w-full h-full font-IranYekan-Bold text-2sm py-2 pr-8' placeholder='جستجو...' type="text"/>
                                 <button onClick={() => setShowSearchBox(false)} className='flex items-center justify-center p-2 shrink-0'>
                                     <BiX size='24px'/>
@@ -319,16 +330,17 @@ export default function Index() {
                             </form>
                         </div>
                         <div className='flex items-center'>
-                            <a className='flex items-center justify-center w-10 h-10 text-[#677788]' href="#">
+                            <a className='flex items-center justify-center w-10 h-10 text-caption' href="#">
                                 <BiMoon size='24px'/>
                             </a>
-                            <a className='flex items-center justify-center w-10 h-10 text-[#677788] relative' href="#">
+                            <div className='flex items-center justify-center w-10 h-10 text-caption relative'>
                                 <span onClick={(e) => {
                                     e.preventDefault()
-                                    setShowWidgest(prevState => !prevState)
+                                    setShowWidgets(prevState => !prevState)
                                 }} className='flex items-center justify-center cursor-pointer'>
                                     <BiGridAlt size='24px'/>
                                 </span>
+                                {/* Widgets Content Wrapper */}
                                 <div
                                     className={`absolute left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
@@ -341,113 +353,52 @@ export default function Index() {
                                         </span>
                                     </div>
                                     <div id='widgets-wrapper' className='grid grid-cols-2 overflow-y-auto h-[440px]'>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <FaRegCalendarAlt size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                تقویم
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                قرارهای ملاقات
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <BiFoodMenu size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                برنامه صورتحساب
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                مدیریت حساب&zwnj;ها
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <BiCheckShield size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                مدیریت نقش&zwnj;ها
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                مجوز&zwnj;ها
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <IoSettingsOutline size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                تنظیمات
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                تنظیمات حساب
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <FaRegCalendarAlt size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                تقویم
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                قرارهای ملاقات
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <BiFoodMenu size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                برنامه صورتحساب
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                مدیریت حساب&zwnj;ها
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className='flex flex-col odd:border-b odd:border-b-[#d4d8dd] odd:border-l odd:border-l-[#d4d8dd] even:border-b even:border-b-[#d4d8dd] items-center justify-center p-6 transition-colors duration-300 hover:bg-gray-50'
-                                            to='#'>
-                                            <span
-                                                className='w-12 h-12 rounded-full flex items-center justify-center bg-[#e7ebef] text-secondary'>
-                                                <BiCheckShield size='20px'/>
-                                            </span>
-                                            <h6 className='text-[#677788] font-IranYekan-Bold text-2sm/7 mt-2 mb-1'>
-                                                مدیریت نقش&zwnj;ها
-                                            </h6>
-                                            <span className='text-xs font-IranYekan-Bold text-muted'>
-                                                مجوز&zwnj;ها
-                                            </span>
-                                        </Link>
+                                        <WidgetBox href='#' caption='قرارهای ملاقات' title='تقویم'>
+                                            <FaRegCalendarAlt size='20px'/>
+                                        </WidgetBox>
+                                        <WidgetBox href='#' caption='مدیریت حساب&zwnj;ها' title='برنامه صورتحساب'>
+                                            <BiFoodMenu size='20px'/>
+                                        </WidgetBox>
+                                        <WidgetBox href='#' caption='مجوز&zwnj;ها' title='مدیریت نقش&zwnj;ها'>
+                                            <BiCheckShield size='20px'/>
+                                        </WidgetBox>
+                                        <WidgetBox href='#' caption='تنظیمات حساب' title='تنظیمات'>
+                                            <IoSettingsOutline size='20px'/>
+                                        </WidgetBox>
+                                        <WidgetBox href='#' caption='قرارهای ملاقات' title='تقویم'>
+                                            <FaRegCalendarAlt size='20px'/>
+                                        </WidgetBox>
                                     </div>
                                 </div>
-                            </a>
-                            <div className='flex items-center justify-center w-10 h-10 text-[#677788] relative'>
-                                <BiBell size='24px'/>
+                            </div>
+                            <div className='flex items-center justify-center w-10 h-10 text-caption relative'>
+                                <span onClick={() => setShowNotifications(prevState => !prevState)} className='flex items-center justify-center cursor-pointer'>
+                                    <BiBell size='24px'/>
                                 <span
                                     className='bg-red text-white w-4 h-4 rounded-full flex items-center justify-center absolute top-1 left-1 font-IranYekan-Bold text-[9px]'>5</span>
+                                </span>
+                                {/* Widgets Content Wrapper */}
+                                <div
+                                    className={`absolute left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    <div
+                                        className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-[#d4d8dd]'>
+                                        <span className='font-Estedad-Medium text-lg'>
+                                            اعلان ها
+                                        </span>
+                                        <span className='flex items-center justify-center cursor-pointer'>
+                                            <BiEnvelopeOpen size='24px'/>
+                                        </span>
+                                    </div>
+                                    <div id='widgets-wrapper' className='flex flex-col divide-y divide-[#d4d8dd] overflow-y-auto h-[440px]'>
+                                        {
+                                            notifications.map(notification => (
+                                                <NotificationBox key={notification.id} notifications={notifications} setNotifications={setNotifications} {...notification}/>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                            <a className='flex items-center justify-center w-10 h-10 mr-2.5 text-[#677788] relative overflow-hidden'
+                            <a className='flex items-center justify-center w-10 h-10 mr-2.5 text-caption relative overflow-hidden'
                                href="#">
                                 <img className='w-full h-full object-cover rounded-full' src="/images/avatars/1.png"
                                      alt="user profile"/>
