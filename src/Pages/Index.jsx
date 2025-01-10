@@ -77,7 +77,7 @@ export default function Index() {
             <div className='flex items-start'>
                 {/* Side Bar */}
                 <div
-                    className={`bg-[#182535] min-h-screen transition-all duration-300 fixed z-50 w-64 xl:relative ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
+                    className={`shrink-0 bg-[#182535] min-h-screen transition-all duration-300 fixed z-50 w-64 xl:relative ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
                     {/*  SideBar Logo  */}
                     <a className='sidebar-logo sticky top-0 left-0 right-0 bg-[#182535] gap-2 h-16 flex items-center justify-between pr-6 pl-5'
                        href="#">

@@ -3,8 +3,11 @@ import * as React from "react"
 import {BiUser, BiPieChartAlt, BiTrendingUp} from "react-icons/bi";
 import Chart from 'react-apexcharts'
 import {useState} from "react";
+import {useResizeDetector} from "react-resize-detector";
 
 export default function Dashboard() {
+
+    const {width, ref} = useResizeDetector()
 
     const [usersData, setUsersData] = useState(
         {
@@ -241,7 +244,7 @@ export default function Dashboard() {
                 labels: {
                     style: {
                         colors: 'rgb(103, 119, 136)',
-                         cssClass: '!font-IranYekan-Bold'
+                        cssClass: '!font-IranYekan-Bold'
                     }
                 }
             },
@@ -266,8 +269,7 @@ export default function Dashboard() {
                 show: false
             },
             tooltip: {
-                custom: function({series, seriesIndex, dataPointIndex, w}){
-                    console.log(series)
+                custom: function ({series, seriesIndex, dataPointIndex, w}) {
                     return (
                         `<div dir="rtl" class='bg-white rounded py-1 px-2 shadow-md shadow-black/20 !text-2xs !font-IranYekan-Bold'>
                             <div class='pb-1 !border-b !border-b-secondary mb-1'>
@@ -287,10 +289,113 @@ export default function Dashboard() {
 
     });
 
+    const [referralData, setReferralData] = useState(
+        {
+
+            series: [{
+                name: "سری 1",
+                data: [0, 150, 25, 100, 15, 149]
+            }],
+            options: {
+                colors: ['rgb(57, 218, 138)'],
+                chart: {
+                    type: 'line',
+                    parentHeightOffset: 0,
+                    parentWidthOffset: 0,
+                    height: '100%',
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                },
+                markers: {
+                    size: 5,
+                    colors: 'transparent',
+                    strokeColors: 'transparent',
+                    strokeWidth: 4,
+                    discrete: [
+                        {
+                            fillColor: '#fff',
+                            seriesIndex: 0,
+                            dataPointIndex: 5,
+                            strokeColor: 'rgb(57, 218, 138)',
+                            strokeWidth: 4,
+                            size: 5,
+                            radius: 2
+                        }
+                    ],
+                    hover: {
+                        size: 7
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    width: 4,
+                    curve: 'smooth'
+                },
+                title: {
+                    enabled: false,
+                },
+                grid: {
+                    show: false,
+                    padding: {
+                        top: -25,
+                        bottom: -20,
+                    }
+                },
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                },
+                yaxis: {
+                    show: false,
+                    labels: {
+                        show: false
+                    },
+                    max: 155,
+                    min: 0,
+                    stepSize: 25,
+                },
+                legend: {
+                    show: false
+                },
+                tooltip: {
+                    custom: function ({series, seriesIndex, dataPointIndex, w}) {
+                        return (
+                            `<div dir="rtl" class='bg-white rounded py-1 px-2 shadow-md shadow-black/20 !text-2xs !font-IranYekan-Bold'>
+                            <div class='pb-1 !border-b !border-b-secondary mb-1'>
+                                <span class=''>${dataPointIndex + 1}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full" style="background-color: ${w.globals.colors[seriesIndex]}"></div>
+                                <div>${w.globals.initialSeries[seriesIndex].name}:</div>
+                                <div>${series[seriesIndex][dataPointIndex]}</div>
+                            </div>
+                        </div>`
+                        )
+                    }
+                }
+            },
+
+
+        }
+    )
+
     return (
         <div className='container'>
             <div className='grid grid-cols-12 gap-6'>
-            <div className='col-span-6'>
+                <div className='col-span-6'>
                     <Box>
                         <div className='pb-[22px]'>
                             <h6 className='font-IranYekan-Medium text-title text-lg'>
@@ -343,6 +448,31 @@ export default function Dashboard() {
                                    height={250}/>
                         </div>
                     </Box>
+                </div>
+                <div className='col-span-6 grid grid-cols-2 grid-rows-2 gap-6'>
+                    <div className='text-center'>
+                        <Box>
+                            <div>
+                                <h2 className='text-3xl font-IranYekan-Bold mb-3'>
+                                    32,690
+                                </h2>
+                                <span className='font-IranYekan-Medium text-muted text-2sm'>ارجاع 40%</span>
+                            </div>
+                            <div ref={ref} className='w-full flex items-center justify-center'>
+                                <Chart options={referralData.options} height={100} type='line'
+                                       series={referralData.series}/>
+                            </div>
+                        </Box>
+                    </div>
+                    <div>
+                        <Box/>
+                    </div>
+                    <div>
+                        <Box/>
+                    </div>
+                    <div>
+                        <Box/>
+                    </div>
                 </div>
             </div>
         </div>
