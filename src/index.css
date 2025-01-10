@@ -82,4 +82,9 @@
         background: rgb(var(--color-zinc));
         border-radius: 5px;
     }
+
+    .tooltip-wrapper {
+        background-color: rgb(var(--color-white));
+        border: 1px solid red;
+    }
 }

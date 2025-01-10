@@ -16,24 +16,25 @@ import {
     BiGridAlt,
     BiBell,
     BiX,
-    BiPlusCircle, BiEnvelopeOpen, BiCreditCard, BiSupport, BiHelpCircle, BiPowerOff
+    BiPlusCircle, BiEnvelopeOpen, BiCreditCard, BiSupport, BiHelpCircle, BiPowerOff, BiMenu
 } from "react-icons/bi";
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import WidgetBox from "../Components/WidgetBox/WidgetBox";
 import NotificationBox from "../Components/NotificationBox/NotificationBox";
-import Overlay from "../Overlay/Overlay";
+import Overlay from "../Components/Overlay/Overlay";
 
 export default function Index() {
 
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true)
     const [showTransactionsSubmenu, setShowTransactionsSubmenu] = useState(false)
     const [showRulesSubmenu, setShowRulesSubmenu] = useState(false)
-    const [showUserProfileSubmenu, setShowUserProfileShow] = useState(false)
+    const [showUserProfileSubmenu, setShowUserProfileSubmenu] = useState(false)
     const [showPanelSetting, setShowPanelSetting] = useState(false)
     const [showSearchBox, setShowSearchBox] = useState(false)
     const [showWidgets, setShowWidgets] = useState(false)
     const [showNotifications, setShowNotifications] = useState(false)
     const [showProfile, setShowProfile] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false)
     const [notifications, setNotifications] = useState([
         {id: 1, title: 'تبریک می‌گوییم کلارک', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/1.png', time: '1 ساعت قبل', seen: false},
         {id: 2, title: 'پیام جدید', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/2.png', time: '2 ساعت و 49 دقیقه پیش', seen: true},
@@ -61,6 +62,13 @@ export default function Index() {
         }
     }, []);
 
+    const closeSubmenusHandler = () => {
+        setShowTransactionsSubmenu(false)
+        setShowRulesSubmenu(false)
+        setShowUserProfileSubmenu(false)
+        setShowPanelSetting(false)
+    }
+
     return (
         <>
 
@@ -69,22 +77,30 @@ export default function Index() {
             <div className='flex items-start'>
                 {/* Side Bar */}
                 <div
-                    className={`bg-[#182535] min-h-screen transition-all duration-300 relative ${sidebarIsOpen ? 'w-64' : 'w-20'}`}>
+                    className={`bg-[#182535] min-h-screen transition-all duration-300 fixed z-50 w-64 xl:relative ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
                     {/*  SideBar Logo  */}
-                    <a className='sidebar-logo sticky top-0 left-0 right-0 bg-[#182535] gap-2 h-16 flex items-center justify-start pr-6 pl-5'
+                    <a className='sidebar-logo sticky top-0 left-0 right-0 bg-[#182535] gap-2 h-16 flex items-center justify-between pr-6 pl-5'
                        href="#">
-                        <svg className='w-7 h-7'>
+                        <span className='flex items-center justify-start gap-2'>
+                            <svg className='w-7 h-7 shrink-0'>
                             <use href='#logo'></use>
                         </svg>
-                        {
-                            sidebarIsOpen && (
-                                <span className='font-IranYekan-Bold text-3xl text-white'>فرست</span>
-                            )
-                        }
+                        <span
+                            className={`font-IranYekan-Bold text-3xl text-white ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>فرست</span>
+                        </span>
+                        <span onClick={() => {
+                            setOpenMenu(prevState => !prevState)
+                            closeSubmenusHandler()
+                        }} className='flex xl:hidden items-center justify-center text-blue'>
+                            <BiX size='24px'/>
+                        </span>
                     </a>
                     {/*  SideBar Open Button  */}
-                    <button onClick={() => setSidebarIsOpen(prevState => !prevState)}
-                            className='w-8 h-8 rounded-l-xl bg-blue text-white flex items-center text-xl justify-center absolute -left-8 top-4 z-20'>
+                    <button onClick={() => {
+                        setSidebarIsOpen(prevState => !prevState)
+                        closeSubmenusHandler()
+                    }}
+                            className='w-8 h-8 rounded-l-xl bg-blue text-white hidden xl:flex items-center text-xl justify-center absolute -left-8 top-4 z-20'>
                         {
                             sidebarIsOpen ? (
                                 <MdKeyboardArrowRight/>
@@ -93,27 +109,28 @@ export default function Index() {
                             )
                         }
                     </button>
+                    {/* Sidebar Content */}
                     <div
-                        className={`${sidebarIsOpen ? 'w-64' : 'w-20'} mt-2.5 overflow-hidden transition-all duration-300`}>
+                        className={`mt-2.5 overflow-hidden transition-all duration-300`}>
                         <ul className='flex flex-col gap-0.5 font-IranYekan-Medium text-2sm text-[#bec5cc] px-[15px]'>
                             <Link to='/dashboard'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md bg-blue text-white'>
                                 <BiHomeCircle className='shrink-0' size='20px'/>
-                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     داشبورد
                                 </span>
                             </Link>
                             <Link to='/calendar'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
                                 <FaRegCalendarAlt className='shrink-0' size='20px'/>
-                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     تقویم
                                 </span>
                             </Link>
                             <Link to='/task-board'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
                                 <BiGrid className='shrink-0' size='20px'/>
-                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     تخته وظایف
                                 </span>
                             </Link>
@@ -123,7 +140,7 @@ export default function Index() {
                                     <span className='flex items-center gap-2'>
                                 <BiFoodMenu className='shrink-0' size='20px'/>
                                     <span
-                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                         صورتحساب
                                     </span>
                                 </span>
@@ -134,7 +151,7 @@ export default function Index() {
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     لیست
                                 </span>
                                     </Link>
@@ -142,7 +159,7 @@ export default function Index() {
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     پیش نمایش
                                 </span>
                                     </Link>
@@ -150,7 +167,7 @@ export default function Index() {
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     ویرایش
                                 </span>
                                     </Link>
@@ -158,7 +175,7 @@ export default function Index() {
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     افزودن
                                 </span>
                                     </Link>
@@ -167,14 +184,14 @@ export default function Index() {
                             <Link to='/users'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
                                 <BiUser className='shrink-0' size='20px'/>
-                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     کاربران
                                 </span>
                             </Link>
                             <Link to='/pricing'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
                                 <BiDollar className='shrink-0' size='20px'/>
-                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     قیمت گذاری
                                 </span>
                             </Link>
@@ -184,7 +201,7 @@ export default function Index() {
                                     <span className='flex items-center gap-2'>
                                 <BiCheckShield className='shrink-0' size='20px'/>
                                     <span
-                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                         نقش‌ها و مجوزها
                                     </span>
                                 </span>
@@ -208,12 +225,12 @@ export default function Index() {
                                 </ul>
                             </li>
                             <li className={`overflow-hidden transition-all duration-300 ${showUserProfileSubmenu ? 'bg-[#212e3d] h-[216px]' : 'h-[42px]'} rounded-md`}>
-                                <button onClick={() => setShowUserProfileShow(prevState => !prevState)}
+                                <button onClick={() => setShowUserProfileSubmenu(prevState => !prevState)}
                                         className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showUserProfileSubmenu && 'hover:bg-[#2a3645]'} rounded-md`}>
                                     <span className='flex items-center gap-2'>
                                 <RiFileUserLine className='shrink-0' size='20px'/>
                                     <span
-                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                         پروفایل کاربر
                                     </span>
                                 </span>
@@ -256,7 +273,7 @@ export default function Index() {
                                     <span className='flex items-center gap-2'>
                                 <IoSettingsOutline className='shrink-0' size='20px'/>
                                     <span
-                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                         تنظیمات حساب
                                     </span>
                                 </span>
@@ -267,7 +284,7 @@ export default function Index() {
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     حساب
                                 </span>
                                     </Link>
@@ -275,7 +292,7 @@ export default function Index() {
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     امنیت
                                 </span>
                                     </Link>
@@ -283,7 +300,7 @@ export default function Index() {
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     صورتحساب و پلن‌ها
                                 </span>
                                     </Link>
@@ -291,7 +308,7 @@ export default function Index() {
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     اعلان‌ها
                                 </span>
                                     </Link>
@@ -299,7 +316,7 @@ export default function Index() {
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     اتصالات
                                 </span>
                                     </Link>
@@ -308,33 +325,50 @@ export default function Index() {
                         </ul>
                     </div>
                 </div>
-                <div className='w-full pl-8 pr-10 relative'>
+                <div className='w-full px-4 lg:px-8 xl:pl-8 xl:pr-10 relative'>
                     {/*Dashboard Header  */}
                     <div className='h-16 flex items-center justify-between w-full'>
-                        {/* Search Btn */}
-                        <a onClick={(event) => {
-                            event.preventDefault()
-                            setShowSearchBox(prevState => !prevState)
-                        }} className='flex items-center gap-2 text-caption' href="#">
-                            <BiSearchAlt size='24px'/>
-                            <span className='text-2sm font-IranYekan-Medium text-muted flex gap-0.5'>
+                        <div className='flex items-center gap-4'>
+                            {/* Menu Button  */}
+                            <a onClick={(event) => {
+                                event.preventDefault()
+                                setOpenMenu(prevState => !prevState)
+                                closeSubmenusHandler()
+                            }} className='flex xl:hidden items-center gap-2 text-caption' href="#">
+                                <BiMenu size='24px'/>
+                            </a>
+                            {/* Sidebar Menu Overlay */}
+                            <Overlay show={openMenu} setShow={() => {
+                                setOpenMenu(prevState => !prevState)
+                                closeSubmenusHandler()
+                            }} className='bg-secondary/15 xl:hidden'/>
+                            {/* Search Btn */}
+                            <a onClick={(event) => {
+                                event.preventDefault()
+                                setShowSearchBox(prevState => !prevState)
+                            }} className='flex items-center gap-2 text-caption' href="#">
+                                <BiSearchAlt size='24px'/>
+                                <span className='text-2sm font-IranYekan-Medium text-muted hidden md:flex gap-0.5'>
                                 جستجو
                                 <span>
                                     (Ctrl+/)
                                 </span>
                             </span>
-                        </a>
-                        {/*  Sidebar Search Box  */}
-                        <div className={`absolute left-0 right-0 transition-all duration-300 ${showSearchBox ? 'top-0' : '-top-[60px]'} py-2.5 px-8 z-10 bg-white`}>
-                            <form className='flex items-center h-10 text-caption' action="#">
-                                <input className='outline-none w-full h-full font-IranYekan-Bold text-2sm py-2 pr-8' placeholder='جستجو...' type="text"/>
-                                <button onClick={(event) => {
-                                    event.preventDefault()
-                                    setShowSearchBox(false)
-                                }} className='flex items-center justify-center p-2 shrink-0'>
-                                    <BiX size='24px'/>
-                                </button>
-                            </form>
+                            </a>
+                            {/*  Sidebar Search Box  */}
+                            <div
+                                className={`absolute left-0 right-0 transition-all duration-300 ${showSearchBox ? 'top-0' : '-top-[60px]'} py-2.5 px-8 z-10 bg-white`}>
+                                <form className='flex items-center h-10 text-caption' action="#">
+                                    <input className='outline-none w-full h-full font-IranYekan-Bold text-2sm py-2 pr-8'
+                                           placeholder='جستجو...' type="text"/>
+                                    <button onClick={(event) => {
+                                        event.preventDefault()
+                                        setShowSearchBox(false)
+                                    }} className='flex items-center justify-center p-2 shrink-0'>
+                                        <BiX size='24px'/>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <div className='flex items-center'>
                             <a className='flex items-center justify-center w-10 h-10 text-caption' href="#">
@@ -352,7 +386,7 @@ export default function Index() {
                                 {/* Widgets Content Wrapper */}
                                 <div
                                     ref={widgetsWrapper}
-                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
                                         className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
@@ -386,7 +420,8 @@ export default function Index() {
 
                             {/* Notifications */}
                             <div className='flex items-center justify-center w-10 h-10 text-caption relative'>
-                                <span onClick={() => setShowNotifications(prevState => !prevState)} className='flex items-center justify-center cursor-pointer'>
+                                <span onClick={() => setShowNotifications(prevState => !prevState)}
+                                      className='flex items-center justify-center cursor-pointer'>
                                     <BiBell size='24px'/>
                                 <span
                                     className='bg-red text-white w-4 h-4 rounded-full flex items-center justify-center absolute top-1 left-1 font-IranYekan-Bold text-[9px]'>5</span>
@@ -394,7 +429,7 @@ export default function Index() {
                                 {/* Notifications Content Wrapper */}
                                 <div
                                     ref={notificationsWrapper}
-                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
                                         className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
@@ -404,31 +439,36 @@ export default function Index() {
                                             <BiEnvelopeOpen size='24px'/>
                                         </span>
                                     </div>
-                                    <div id='widgets-wrapper' className='flex flex-col divide-y divide-zinc overflow-y-auto h-[440px]'>
+                                    <div id='widgets-wrapper'
+                                         className='flex flex-col divide-y divide-zinc overflow-y-auto h-[440px]'>
                                         {
                                             notifications.map(notification => (
-                                                <NotificationBox key={notification.id} notifications={notifications} setNotifications={setNotifications} {...notification}/>
+                                                <NotificationBox key={notification.id} notifications={notifications}
+                                                                 setNotifications={setNotifications} {...notification}/>
                                             ))
                                         }
                                     </div>
                                 </div>
                             </div>
                             {/*  Notifications Overlay  */}
-                            <Overlay show={showNotifications} setShow={() => setShowNotifications(prevState => !prevState)}/>
+                            <Overlay show={showNotifications}
+                                     setShow={() => setShowNotifications(prevState => !prevState)}/>
 
                             {/*  Profile  */}
                             <div className='mr-2.5 text-caption relative py-2'>
-                                <div onClick={() => setShowProfile(prevState => !prevState)} className='flex items-center justify-center w-10 h-10 cursor-pointer relative'>
+                                <div onClick={() => setShowProfile(prevState => !prevState)}
+                                     className='flex items-center justify-center w-10 h-10 cursor-pointer relative'>
                                     <img className='w-full h-full object-cover rounded-full' src="/images/avatars/1.png"
                                          alt="user profile"/>
                                     <span
                                         className='bg-success w-3 h-3 rounded-full border-2 border-white flex items-center justify-center absolute bottom-0 right-0 font-IranYekan-Bold'></span>
                                 </div>
                                 <div
-                                    className={`absolute z-50 left-0 top-full w-[224px] transition-all duration-300 rounded-md overflow-hidden shadow-[0_0.25rem_1rem_rgba(147,158,170,0.45)] ${showProfile ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`absolute z-50 left-0 top-full w-[224px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showProfile ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
 
                                     <div className='border-b border-b-zinc py-1'>
-                                        <Link to='#' className='flex items-center gap-4 px-4 py-2 transition-colors duration-300 hover:bg-gray-light'>
+                                        <Link to='#'
+                                              className='flex items-center gap-4 px-4 py-2 transition-colors duration-300 hover:bg-gray-light'>
                                             <div className='w-10 h-10 relative'>
                                                 <img className='w-full h-full object-cover rounded-full'
                                                      src="/images/avatars/1.png"
@@ -514,6 +554,8 @@ export default function Index() {
                             <Overlay show={showProfile} setShow={() => setShowProfile(prevState => !prevState)}/>
                         </div>
                     </div>
+                {/*  Outlet Content  */}
+                    <Outlet/>
                 </div>
             </div>
         </>
