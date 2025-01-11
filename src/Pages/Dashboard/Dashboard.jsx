@@ -1,13 +1,18 @@
 import Box from "../../Components/Box/Box";
 import * as React from "react"
-import {BiUser, BiPieChartAlt, BiTrendingUp} from "react-icons/bi";
+import {BiUser, BiPieChartAlt, BiTrendingUp, BiChevronUp} from "react-icons/bi";
 import Chart from 'react-apexcharts'
 import {useState} from "react";
 import {useResizeDetector} from "react-resize-detector";
 
 export default function Dashboard() {
 
-    const {width, ref} = useResizeDetector()
+    const {width: width1, ref: ref1} = useResizeDetector()
+    const {width: width2, ref: ref2} = useResizeDetector()
+    const {width: width3, height: height3, ref: ref3} = useResizeDetector()
+    const {width: width4, height: height4, ref: ref4} = useResizeDetector()
+
+    console.log(width3, height3)
 
     const [usersData, setUsersData] = useState(
         {
@@ -365,7 +370,6 @@ export default function Dashboard() {
                     },
                     max: 155,
                     min: 0,
-                    stepSize: 25,
                 },
                 legend: {
                     show: false
@@ -391,6 +395,189 @@ export default function Dashboard() {
 
         }
     )
+
+    const [subConvert, setSubConvert] = useState({
+        series: [{
+            data: [50, 100, 0, 60, 20, 30]
+        }],
+        options: {
+            chart: {
+                type: 'line',
+                toolbar: false,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                width: 3,
+                curve: 'smooth'
+            },
+            grid: {
+                show: false,
+                padding: {
+                    top: 0,
+                }
+            },
+            yaxis: {
+                show: false,
+                labels: {
+                    show: false
+                },
+                max: 110,
+                min: -5,
+            },
+            legend: {
+                show: false
+            },
+            dataLabels: {
+                enabled: false
+            },
+            title: {
+                show: false
+            },
+            colors: ['rgb(90, 141, 238)'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'rgb(255, 255, 255)',
+                    type: 'horizontal',
+                    gradientToColors: undefined,
+                    opacityFrom: 0,
+                    opacityTo: 0.9,
+                    stops: [0, 30, 70, 100]
+                }
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+    })
+
+    const [incomeData, setIncomeData] = useState({
+        series: [{
+            data: [40, 70, 38, 90, 40, 65]
+        }],
+        options: {
+            chart: {
+                type: 'line',
+                toolbar: false,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                width: 3,
+                curve: 'smooth'
+            },
+            grid: {
+                show: false,
+                padding: {
+                    top: 0,
+                }
+            },
+            yaxis: {
+                show: false,
+                labels: {
+                    show: false
+                },
+                max: 110,
+                min: -5,
+            },
+            legend: {
+                show: false
+            },
+            dataLabels: {
+                enabled: false
+            },
+            title: {
+                show: false
+            },
+            colors: ['rgb(253, 126, 20)'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'rgb(255, 255, 255)',
+                    type: 'horizontal',
+                    gradientToColors: undefined,
+                    opacityFrom: 0,
+                    opacityTo: 0.9,
+                    stops: [0, 30, 70, 100]
+                }
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+    })
+
+    const [convertData, setConvertData] = useState({
+        series: [
+            {
+                name: 'مشتریان جدید',
+                data: [75, 150, 225, 200, 35, 50, 150, 180, 50, 150, 240, 140, 75, 35, 60, 120]
+            },
+            {
+                name: 'مشتریان قدیمی',
+                data: [-100, -55, -40, -120, -70, -40, -60, -50, -70, -30, -60, -40, -50, -70, -40, -50]
+            }
+        ],
+        options: {
+            chart: {
+                height: '100%',
+                stacked: true,
+                type: 'bar',
+                toolbar: {
+                    show: false
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '25%',
+                    borderRadius: 2,
+                    startingShape: 'rounded'
+                },
+                distributed: true
+            },
+            colors: ['rgba(90, 141, 238, 80%)', 'rgba(253, 126, 20, 70%)'],
+            grid: {
+                show: false,
+                padding: {
+                    top: 0,
+                    bottom: -10,
+                }
+            },
+            legend: {
+                show: false
+            },
+            dataLabels: {
+                enabled: false
+            },
+            tooltip: {
+                custom: function ({series, seriesIndex, dataPointIndex, w}) {
+                    return (
+                        `<div dir="rtl" class='bg-white rounded py-1 px-2 shadow-md shadow-black/20 !text-2xs !font-IranYekan-Bold'>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full" style="background-color: ${w.globals.colors[seriesIndex]}"></div>
+                                <div>${w.globals.initialSeries[seriesIndex].name}:</div>
+                                <div dir="ltr">${series[seriesIndex][dataPointIndex]}</div>
+                            </div>
+                        </div>`
+                    )
+                }
+            },
+            yaxis: {
+                show: false,
+                labels: {
+                    show: false
+                },
+                max: 250,
+                min: -130,
+            },
+        }
+    })
 
     return (
         <div className='container'>
@@ -453,25 +640,85 @@ export default function Dashboard() {
                     <div className='text-center'>
                         <Box>
                             <div>
-                                <h2 className='text-3xl font-IranYekan-Bold mb-3'>
+                                <h2 className='text-3xl font-IranYekan-Bold mb-3 text-title'>
                                     32,690
                                 </h2>
                                 <span className='font-IranYekan-Medium text-muted text-2sm'>ارجاع 40%</span>
                             </div>
-                            <div ref={ref} className='w-full flex items-center justify-center'>
-                                <Chart options={referralData.options} height={100} type='line'
+                            <div ref={ref1} className='flex relative'>
+                                <Chart options={referralData.options} height={100} width={width1} type='line'
                                        series={referralData.series}/>
                             </div>
                         </Box>
                     </div>
                     <div>
-                        <Box/>
+                        <Box>
+                            <div className="flex flex-col justify-between h-full">
+                                <div className='flex items-center justify-between'>
+                                    <div>
+                                        <h4 className='text-lg font-IranYekan-Medium mb-3'>
+                                            تبدیل
+                                        </h4>
+                                        <div className='flex items-center gap-1'>
+                                        <span className='text-2sm font-IranYekan-Medium text-muted'>
+                                            60%
+                                        </span>
+                                            <span className='text-success'>
+                                            <BiChevronUp size='20px'/>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <h2 className='text-3xl font-IranYekan-Bold mb-3 text-title'>
+                                        89K
+                                    </h2>
+                                </div>
+                                <div ref={ref2} className='flex relative'>
+                                    <Chart options={convertData.options} height={100} width={width2} type='bar'
+                                           series={convertData.series}/>
+                                </div>
+                            </div>
+                        </Box>
                     </div>
                     <div>
-                        <Box/>
+                        <Box>
+
+                        </Box>
                     </div>
-                    <div>
-                        <Box/>
+                    <div className='grid grid-cols-1 grid-rows-2 gap-6'>
+                        <Box>
+                            <div className='flex justify-between items-center gap-4'>
+                                <div className='flex items-center gap-4'>
+                                    <span
+                                        className='bg-blue/20 rounded-full flex items-center justify-center w-10 h-10 text-blue'>
+                                        <BiUser size='22px'/>
+                                    </span>
+                                    <div className='flex flex-col items-start'>
+                                        <h4 className='text-lg font-IranYekan-Bold text-title'>38,566</h4>
+                                        <span className='text-2xs font-IranYekan-Bold text-muted'>تبدیل</span>
+                                    </div>
+                                </div>
+                                <div ref={ref3} className='flex-1 min-w-0'>
+                                    <Chart series={subConvert.series} options={subConvert.options} height={40} width={width3} type='line'/>
+                                </div>
+                            </div>
+                        </Box>
+                        <Box>
+                            <div className='flex justify-between items-center gap-4'>
+                                <div className='flex items-center gap-4'>
+                                    <span
+                                        className='bg-blue/20 rounded-full flex items-center justify-center w-10 h-10 text-blue'>
+                                        <BiUser size='22px'/>
+                                    </span>
+                                    <div className='flex flex-col items-start'>
+                                        <h4 className='text-lg font-IranYekan-Bold text-title'>53,659</h4>
+                                        <span className='text-2xs font-IranYekan-Bold text-muted'>درآمد</span>
+                                    </div>
+                                </div>
+                                <div ref={ref4} className='flex-1 min-w-0'>
+                                    <Chart series={incomeData.series} options={incomeData.options} height={40} width={width4} type='line'/>
+                                </div>
+                            </div>
+                        </Box>
                     </div>
                 </div>
             </div>
