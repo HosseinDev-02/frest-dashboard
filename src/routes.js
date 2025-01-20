@@ -21,12 +21,13 @@ import Connections from "./Pages/AccountSetting/Connections";
 import Plans from "./Pages/AccountSetting/Plans";
 import Security from "./Pages/AccountSetting/Security";
 import Notifications from "./Pages/AccountSetting/Notifications";
+import Calendar from "./Pages/Calendar/Calendar";
 
 let routes = [
     {
         path: '/', element: <Index/>, children: [
-            { path: 'dashboard', element: <Dashboard/> },
-            { path: 'calendar', element: <Dashboard/> },
+            { path: '/', element: <Dashboard/> },
+            { path: 'calendar', element: <Calendar/> },
             { path: 'task-board', element: <TaskBoard/> },
             { path: 'pricing', element: <Pricing/> },
             { path: 'users', element: <Users/> },

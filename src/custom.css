@@ -1,0 +1,16 @@
+.apexcharts-legend {
+    gap: 8px !important;
+}
+.apexcharts-legend-series {
+    display: flex !important;
+    direction: rtl !important;
+    gap: 4px !important;
+    padding: 0 !important;
+}
+
+.apexcharts-legend-marker {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 100% !important;
+    overflow: hidden !important;
+}

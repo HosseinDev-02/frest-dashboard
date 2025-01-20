@@ -51,13 +51,16 @@ module.exports = {
                 DEFAULT: '0 2px 14px rgb(0, 0, 0, 0.1)',
                 'md': '0 4px 16px rgb(0, 0, 0, 0.1)'
             },
+            content: {
+
+            },
             container: {
                 screens: {
                     DEFAULT: '1440px'
                 },
                 center: true,
                 padding: {
-                    DEFAULT: '1.875rem'
+                    lg: '1.875rem'
                 }
             }
         },

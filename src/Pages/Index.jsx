@@ -35,6 +35,7 @@ export default function Index() {
     const [showNotifications, setShowNotifications] = useState(false)
     const [showProfile, setShowProfile] = useState(false)
     const [openMenu, setOpenMenu] = useState(false)
+    const [headerShadow, setHeaderShadow] = useState(false)
     const [notifications, setNotifications] = useState([
         {id: 1, title: 'تبریک می‌گوییم کلارک', caption: 'شما پیام جدید از ناتالی دارید', img: '/images/avatars/1.png', time: '1 ساعت قبل', seen: false},
         {id: 2, title: 'پیام جدید', caption: 'برنامه پروژه مدیریت شما پذیرفته شد.', img: '/images/avatars/2.png', time: '2 ساعت و 49 دقیقه پیش', seen: true},
@@ -48,6 +49,13 @@ export default function Index() {
 
 
     useEffect(() => {
+        window.addEventListener('scroll', (event) => {
+            if(window.scrollY > 40) {
+                setHeaderShadow(true)
+            }else {
+                setHeaderShadow(false)
+            }
+        })
 
         const keyDownHandler = (e) => {
             if(e.ctrlKey && e.key === '/') {
@@ -74,12 +82,12 @@ export default function Index() {
 
             <Symbols/>
 
-            <div className='flex items-start'>
+            <div className='flex'>
                 {/* Side Bar */}
                 <div
-                    className={`shrink-0 bg-[#182535] min-h-screen transition-all duration-300 fixed z-50 w-64 xl:relative ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
+                    className={`shrink-0 bg-[#182535] h-screen transition-all duration-300 fixed z-[1001] w-64 ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
                     {/*  SideBar Logo  */}
-                    <a className='sidebar-logo sticky top-0 left-0 right-0 bg-[#182535] gap-2 h-16 flex items-center justify-between pr-6 pl-5'
+                    <a className='sidebar-logo bg-[#182535] gap-2 h-16 flex items-center justify-between pr-6 pl-5'
                        href="#">
                         <span className='flex items-center justify-start gap-2'>
                             <svg className='w-7 h-7 shrink-0'>
@@ -100,7 +108,7 @@ export default function Index() {
                         setSidebarIsOpen(prevState => !prevState)
                         closeSubmenusHandler()
                     }}
-                            className='w-8 h-8 rounded-l-xl bg-blue text-white hidden xl:flex items-center text-xl justify-center absolute -left-8 top-4 z-20'>
+                            className='w-8 h-8 rounded-l-xl bg-blue text-white hidden xl:flex items-center text-xl justify-center absolute -left-8 top-4 z-[1001]'>
                         {
                             sidebarIsOpen ? (
                                 <MdKeyboardArrowRight/>
@@ -113,7 +121,7 @@ export default function Index() {
                     <div
                         className={`mt-2.5 overflow-hidden transition-all duration-300`}>
                         <ul className='flex flex-col gap-0.5 font-IranYekan-Medium text-2sm text-[#bec5cc] px-[15px]'>
-                            <Link to='/dashboard'
+                            <Link to='/'
                                   className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md bg-blue text-white'>
                                 <BiHomeCircle className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -325,9 +333,9 @@ export default function Index() {
                         </ul>
                     </div>
                 </div>
-                <div className='w-full px-4 lg:px-8 xl:pl-8 xl:pr-10 relative'>
+                <div className={`w-full px-4 lg:px-8 xl:pl-8 relative transition-all duration-300 ${sidebarIsOpen ? 'xl:pr-72' : 'xl:pr-24'}`}>
                     {/*Dashboard Header  */}
-                    <div className='h-16 flex items-center justify-between w-full'>
+                    <div className={`h-16 ${headerShadow ? 'shadow-[6px_4px_30px_0_rgba(38,60,85,0.12)]' : ''} flex items-center justify-between bg-white fixed left-0 right-0 top-0 z-[1000] transition-all duration-300 px-4 xl:pl-8 xl:pr-10 ${sidebarIsOpen ? 'xl:right-64' : 'xl:right-20'}`}>
                         <div className='flex items-center gap-4'>
                             {/* Menu Button  */}
                             <a onClick={(event) => {
@@ -386,7 +394,7 @@ export default function Index() {
                                 {/* Widgets Content Wrapper */}
                                 <div
                                     ref={widgetsWrapper}
-                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`fixed sm:absolute z-50 left-4 sm:left-0 top-16 sm:top-full right-4 sm:right-auto sm:w-[352px] bg-white transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showWidgets ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
                                         className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
@@ -429,7 +437,7 @@ export default function Index() {
                                 {/* Notifications Content Wrapper */}
                                 <div
                                     ref={notificationsWrapper}
-                                    className={`absolute z-50 left-0 top-full w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`fixed sm:absolute z-50 bg-white left-4 sm:left-0 top-16 sm:top-full right-4 sm:right-auto sm:w-[352px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showNotifications ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                     <div
                                         className='sticky top-0 left-0 right-0 bg-white p-4 flex items-center justify-between border-b border-b-zinc'>
                                         <span className='font-Estedad-Medium text-lg'>
@@ -463,8 +471,9 @@ export default function Index() {
                                     <span
                                         className='bg-success w-3 h-3 rounded-full border-2 border-white flex items-center justify-center absolute bottom-0 right-0 font-IranYekan-Bold'></span>
                                 </div>
+                                {/* Profile Content */}
                                 <div
-                                    className={`absolute z-50 left-0 top-full w-[224px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showProfile ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    className={`absolute z-50 bg-white left-0 top-full w-[224px] transition-all duration-300 rounded-md overflow-hidden shadow-md shadow-[rgba(147,158,170,0.45)] ${showProfile ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
 
                                     <div className='border-b border-b-zinc py-1'>
                                         <Link to='#'
@@ -555,7 +564,9 @@ export default function Index() {
                         </div>
                     </div>
                 {/*  Outlet Content  */}
-                    <Outlet/>
+                    <div className='py-24'>
+                        <Outlet/>
+                    </div>
                 </div>
             </div>
         </>
