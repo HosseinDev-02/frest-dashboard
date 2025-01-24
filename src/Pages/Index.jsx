@@ -82,7 +82,7 @@ export default function Index() {
 
             <Symbols/>
 
-            <div className='flex'>
+            <div className='flex bg-[#f3f4f4] min-h-screen'>
                 {/* Side Bar */}
                 <div
                     className={`shrink-0 bg-[#182535] h-screen transition-all duration-300 fixed z-[1001] w-64 ${openMenu ? 'right-0' : '-right-64 xl:right-0'} ${sidebarIsOpen ? 'xl:w-64' : 'xl:w-20'}`}>
@@ -335,7 +335,7 @@ export default function Index() {
                 </div>
                 <div className={`w-full px-4 lg:px-8 xl:pl-8 relative transition-all duration-300 ${sidebarIsOpen ? 'xl:pr-72' : 'xl:pr-24'}`}>
                     {/*Dashboard Header  */}
-                    <div className={`h-16 ${headerShadow ? 'shadow-[6px_4px_30px_0_rgba(38,60,85,0.12)]' : ''} flex items-center justify-between bg-white fixed left-0 right-0 top-0 z-[1000] transition-all duration-300 px-4 xl:pl-8 xl:pr-10 ${sidebarIsOpen ? 'xl:right-64' : 'xl:right-20'}`}>
+                    <div className={`h-16 ${headerShadow ? 'shadow-[6px_4px_30px_0_rgba(38,60,85,0.12)]' : ''} flex items-center justify-between bg-[#f3f4f4] fixed left-0 right-0 top-0 z-[1000] transition-all duration-300 px-4 xl:pl-8 xl:pr-10 ${sidebarIsOpen ? 'xl:right-64' : 'xl:right-20'}`}>
                         <div className='flex items-center gap-4'>
                             {/* Menu Button  */}
                             <a onClick={(event) => {

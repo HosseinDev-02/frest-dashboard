@@ -48,8 +48,14 @@ module.exports = {
                 '2sm': ['0.9375rem', '1.375rem'],
             },
             boxShadow: {
+                'xxs': '-1px 2px 3px 0 rgb(0, 0, 0, 0.1)',
+                'xs': '0 1px 3px 0 rgb(0, 0, 0, 0.1)',
+                'sm': '0 2px 4px rgb(0, 0, 0, 0.1)',
                 DEFAULT: '0 2px 14px rgb(0, 0, 0, 0.1)',
                 'md': '0 4px 16px rgb(0, 0, 0, 0.1)'
+            },
+            backgroundImage: {
+                'check': 'url("../public/images/check.svg")'
             },
             content: {
 

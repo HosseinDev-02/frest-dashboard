@@ -14,3 +14,27 @@
     border-radius: 100% !important;
     overflow: hidden !important;
 }
+
+.rmdp-day, .rmdp-week-day {
+    @apply !text-caption
+}
+
+.rmdp-header-values{
+    @apply !text-caption !text-2sm
+}
+
+.rmdp-header-values span:first-child {
+    @apply !text-title
+}
+
+.rmdp-day.rmdp-today span {
+    @apply !rounded-full !border !border-blue !bg-transparent !text-caption
+}
+
+.rmdp-day span {
+    @apply !text-2sm
+}
+
+.rmdp-day:not(.rmdp-disabled,.rmdp-day-hidden) span:hover {
+    @apply !bg-gray-light !text-caption
+}
