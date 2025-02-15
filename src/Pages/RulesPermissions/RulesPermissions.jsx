@@ -1,7 +1,10 @@
+import {Outlet} from "react-router-dom";
+
 export default function RulesPermissions() {
+    // This Component Use For Rules & Permissions
     return (
-        <h2>
-            Rules
-        </h2>
+        <div className='container'>
+            <Outlet/>
+        </div>
     )
 }

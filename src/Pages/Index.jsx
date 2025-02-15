@@ -208,14 +208,14 @@ export default function Index() {
                                     <MdKeyboardArrowLeft className='shrink-0' size='20px'/>
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
-                                    <Link to='#'
+                                    <Link to='/rules&permissions/rules'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     نقش‌ها
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/rules&permissions/permissions'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
