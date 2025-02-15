@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {BiCheck} from "react-icons/bi";
 
-export default function TimeActivityBox({ date, title, children, shapeColor, caption, lastItem }) {
+export default function TimeActivityBox({ date, title, children, shapeColor, caption, lastItem, className}) {
     const [shadowColor, setShadowColor] = useState(null)
 
     useEffect(() => {
@@ -10,7 +10,7 @@ export default function TimeActivityBox({ date, title, children, shapeColor, cap
         }
     }, []);
     return (
-        <div className={`px-6 relative`}>
+        <div className={`px-6 relative ${className}`}>
             <span style={{backgroundColor: shapeColor, boxShadow: `0 0 0 3px ${shadowColor}`}} className='absolute w-3 h-3 rounded-full -right-1.5 top-0'></span>
             <div className='flex items-center justify-between mb-2 flex-wrap gap-4'>
                 <h4 className='font-IranYekan-Bold text-2sm text-title'>

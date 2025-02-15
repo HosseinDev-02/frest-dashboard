@@ -142,7 +142,7 @@ export default function Index() {
                                     تخته وظایف
                                 </span>
                             </Link>
-                            <li className={`overflow-hidden transition-all duration-300 ${showTransactionsSubmenu ? 'bg-[#212e3d] h-[216px]' : 'h-[42px]'} rounded-md`}>
+                            <li className={`overflow-hidden transition-all duration-300 ${showTransactionsSubmenu ? 'bg-[#212e3d] h-[174px]' : 'h-[42px]'} rounded-md`}>
                                 <button onClick={() => setShowTransactionsSubmenu(prevState => !prevState)}
                                         className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showTransactionsSubmenu && 'hover:bg-[#2a3645]'} rounded-md`}>
                                     <span className='flex items-center gap-2'>
@@ -155,7 +155,7 @@ export default function Index() {
                                     <MdKeyboardArrowLeft className='shrink-0' size='20px'/>
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
-                                    <Link to='#'
+                                    <Link to='/invoice/list'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -163,7 +163,7 @@ export default function Index() {
                                     لیست
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/invoice/preview'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -171,15 +171,7 @@ export default function Index() {
                                     پیش نمایش
                                 </span>
                                     </Link>
-                                    <Link to='#'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
-                                        <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
-                                        <span
-                                            className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
-                                    ویرایش
-                                </span>
-                                    </Link>
-                                    <Link to='#'
+                                    <Link to='/invoice/add'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -245,28 +237,28 @@ export default function Index() {
                                     <MdKeyboardArrowLeft className='shrink-0' size='20px'/>
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
-                                    <Link to='#'
+                                    <Link to='/user/profile'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     پروفایل
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/user/projects'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     پروژه‌ها
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/user/team'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     تیم‌ها
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/user/connections'
                                           className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>

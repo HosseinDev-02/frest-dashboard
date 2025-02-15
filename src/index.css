@@ -87,4 +87,147 @@
         background-color: rgb(var(--color-white));
         border: 1px solid red;
     }
+
+    .column-css-style {
+        @apply !flex-grow font-IranYekan-Medium text-2sm text-title !text-right !flex !items-center !pr-4 !py-2.5 !h-auto !pl-0
+    }
+
+    .column-header-css-style {
+        @apply !h-auto !pr-4 !pl-0 !py-2.5 !flex-grow font-IranYekan-Bold text-xs text-title
+    }
+
+    .mobile-action-column-css {
+        @apply !overflow-visible !flex-grow !flex !items-center !justify-center !py-2.5 !h-auto
+    }
+
+    .column-header-user-css,
+    .column-user-css {
+        @apply !basis-auto
+    }
+
+    .action-column-header-css,
+    .column-header-project-css,
+    .column-project-css,
+    .action-column-css,
+    .column-header-status-css,
+    .column-status-css,
+    .column-header-invoice-css,
+    .column-invoice-css,
+    .column-header-role-css,
+    .column-role-css,
+    .column-header-debt-css,
+    .column-debt-css,
+    .column-header-issueDate-css,
+    .column-issueDate-css,
+    .column-header-total-css,
+    .column-total-css,
+    .column-header-id-css,
+    .column-id-css,
+    .column-header-progress-css,
+    .column-progress-css{
+        @apply !hidden
+    }
+
+    .mobile-action-header-column-css,
+    .mobile-action-column-css {
+        @apply !flex
+    }
+
+    .css-1808mag-MuiPaper-root-MuiAccordion-root::before {
+        display: none !important;
+    }
+
+    .column-header-leader-css,
+    .column-leader-css {
+        max-width: 100px !important;
+    }
+
+    .column-header-teams-css,
+    .column-teams-css {
+        max-width: 100px !important;
+    }
+
+    .column-header-action-css .MuiDataGrid-columnHeaderTitleContainer {
+        justify-content: center !important;
+    }
+
+    .css-12i3c74-MuiDataGrid-root,
+    .css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone {
+        min-width: 700px;
+    }
+
+    @media screen and (min-width: 1000px) {
+        .action-column-header-css,
+        .action-column-css {
+            @apply !flex
+        }
+
+        .mobile-action-header-column-css,
+        .mobile-action-column-css {
+            @apply !hidden
+        }
+    }
+
+    @media screen and (min-width: 810px) {
+        .column-header-status-css,
+        .column-status-css,
+        .column-header-progress-css,
+        .column-progress-css {
+            @apply !flex
+        }
+    }
+
+    @media screen and (min-width: 670px) {
+        .column-header-invoice-css,
+        .column-invoice-css,
+        .column-header-project-css,
+        .column-project-css,
+        .column-header-issueDate-css,
+        .column-issueDate-css {
+            @apply !flex
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar {
+            flex-direction: row;
+        }
+
+        .column-header-user-css,
+        .column-user-css {
+            @apply !basis-3/12
+        }
+
+        .column-header-debt-css,
+        .column-debt-css {
+            @apply !flex
+        }
+
+        .css-11cfq65-MuiTablePagination-displayedRows {
+            display: flex !important;
+        }
+    }
+
+    @media screen and (min-width: 550px) {
+        .column-header-total-css,
+        .column-total-css {
+            display: flex !important;
+        }
+    }
+
+    @media screen and (min-width: 500px) {
+        .column-header-role-css,
+        .column-role-css {
+            display: flex !important;
+        }
+    }
+
+    @media screen and (min-width: 450px) {
+        .column-header-status-css,
+        .column-status-css,
+        .column-header-id-css,
+        .column-id-css {
+            display: flex !important;
+        }
+    }
 }

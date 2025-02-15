@@ -12,7 +12,11 @@ export default function SecondaryButton({ title, onClick, className, icon, iconS
                     <Icon size={iconSize}/>
                 )
             }
-            {title}
+            {
+                title && (
+                    <span>{title}</span>
+                )
+            }
         </button>
     )
 }

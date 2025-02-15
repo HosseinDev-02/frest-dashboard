@@ -1,0 +1,5 @@
+@media screen and (min-width: 768px) {
+    .css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar {
+        flex-direction: row !important;
+    }
+}

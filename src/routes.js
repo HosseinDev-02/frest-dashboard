@@ -22,6 +22,7 @@ import Plans from "./Pages/AccountSetting/Plans";
 import Security from "./Pages/AccountSetting/Security";
 import Notifications from "./Pages/AccountSetting/Notifications";
 import Calendar from "./Pages/Calendar/Calendar";
+import UserProfileSetting from "./Pages/UserProfile/UserProfileSetting";
 
 let routes = [
     {
@@ -36,7 +37,7 @@ let routes = [
                     {path: 'list', element: <InvoiceList/>},
                     {path: 'preview', element: <InvoicePreview/>},
                     {path: 'add', element: <AddInvoice/>},
-                    {path: 'edit', element: <EditInvoice/>},
+                    {path: 'edit/:mainInvoiceID', element: <EditInvoice/>},
                 ]
             },
             {
@@ -46,7 +47,8 @@ let routes = [
                 ]
             },
             {
-                path: 'user-profile', element: <UserProfile/>, children: [
+                path: 'user', element: <UserProfile/>, children: [
+                    {path: 'profile', element: <UserProfileSetting/>},
                     {path: 'projects', element: <UserProjects/>},
                     {path: 'team', element: <UserTeam/>},
                     {path: 'connections', element: <UserConnections/>}

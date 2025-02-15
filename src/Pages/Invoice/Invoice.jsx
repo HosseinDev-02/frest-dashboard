@@ -1,7 +1,9 @@
+import {Outlet} from "react-router-dom";
+
 export default function Invoice () {
     return (
-        <h2>
-            Bill
-        </h2>
+        <>
+            <Outlet/>
+        </>
     )
 }

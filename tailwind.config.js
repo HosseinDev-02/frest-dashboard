@@ -55,7 +55,8 @@ module.exports = {
                 'md': '0 4px 16px rgb(0, 0, 0, 0.1)'
             },
             backgroundImage: {
-                'check': 'url("../public/images/check.svg")'
+                'check': 'url("../public/images/check.svg")',
+                'minus': 'url("../public/images/minus.svg")',
             },
             content: {
 
