@@ -60,8 +60,8 @@ export default function Rules() {
         {
             field: 'id',
             headerName: 'شناسه',
-            headerClassName: 'column-header-css-style column-header-id-css !max-w-[90px] !w-full',
-            cellClassName: 'column-css-style column-id-css !max-w-[90px] !w-full',
+            headerClassName: 'column-header-css-style column-header-id-css !max-w-[90px] !w-full !hidden md:!flex',
+            cellClassName: 'column-css-style column-id-css !max-w-[90px] !w-full !hidden md:!flex',
         },
         {
             field: 'status',
@@ -369,10 +369,13 @@ export default function Rules() {
                                 backgroundColor: 'transparent !important'
                             },
                             '.css-1gtv474-MuiDataGrid-columnHeaders': {
-                                width: 'auto !important'
+                                width: '100% !important'
                             },
                             '.css-16z8vpz': {
                                 display: 'none !important'
+                            },
+                            '.css-1vigakz-MuiDataGrid-virtualScroller': {
+                                overflow: 'visible !important'
                             }
                         }}
                         disableRowSelectionOnClick
@@ -414,7 +417,6 @@ export default function Rules() {
                         paginationModel={paginationModal}
                         onPaginationModelChange={setPaginationModal}
                         rows={rows}
-                        getRowHeight={() => 72}
                         columns={columns}
                     />
                 </div>

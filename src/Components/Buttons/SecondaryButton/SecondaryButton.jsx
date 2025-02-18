@@ -1,5 +1,5 @@
 import * as Icons from 'react-icons/bi';
-export default function SecondaryButton({ title, onClick, className, icon, iconSize }) {
+export default function SecondaryButton({ title, onClick, className, icon, iconSize, iconClassName, titleClassName }) {
     let Icon;
     if(icon) {
         Icon = Icons[icon]
@@ -9,12 +9,14 @@ export default function SecondaryButton({ title, onClick, className, icon, iconS
             className={`flex items-center justify-center gap-1 bg-[#e7ebef] text-[#69809a] font-IranYekan-Bold text-2sm text-center rounded py-2 px-[22px] hover:bg-[#69809a] hover:text-white transition-all duration-300 ${className}`}>
             {
                 icon && (
-                    <Icon size={iconSize}/>
+                    <span className={iconClassName}>
+                        <Icon size={iconSize}/>
+                    </span>
                 )
             }
             {
                 title && (
-                    <span>{title}</span>
+                    <span className={titleClassName}>{title}</span>
                 )
             }
         </button>

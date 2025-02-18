@@ -280,7 +280,7 @@ export default function Index() {
                                     <MdKeyboardArrowLeft className='shrink-0' size='20px'/>
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
-                                    <Link to='#'
+                                    <Link to='/account-setting/account'
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -288,7 +288,7 @@ export default function Index() {
                                     حساب
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/account-setting/security'
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -296,7 +296,7 @@ export default function Index() {
                                     امنیت
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/account-setting/plans'
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -304,7 +304,7 @@ export default function Index() {
                                     صورتحساب و پلن‌ها
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/account-setting/notifications'
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
@@ -312,7 +312,7 @@ export default function Index() {
                                     اعلان‌ها
                                 </span>
                                     </Link>
-                                    <Link to='#'
+                                    <Link to='/account-setting/connections'
                                           className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
