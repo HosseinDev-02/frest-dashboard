@@ -42,8 +42,8 @@ let routes = [
             },
             {
                 path: 'rules&permissions', element: <RulesPermissions/>, children: [
-                    {path: 'permissions', element: <Permissions/>},
-                    {path: 'rules', element: <Rules/>}
+                    {path: 'permissionList', element: <Permissions/>},
+                    {path: 'ruleList', element: <Rules/>}
                 ]
             },
             {

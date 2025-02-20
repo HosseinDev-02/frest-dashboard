@@ -9,15 +9,17 @@ import {
     BiDownArrowCircle, BiEdit,
     BiInfoCircle,
     BiPaperPlane, BiTrash,
-    BiTrendingUp
+    BiTrendingUp, BiX
 } from "react-icons/bi";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {rules} from "../../Utils/Rules";
 import {invoicesData, invoicesStatus as invoices} from "../../Utils/Invoices";
 import MenuAction from "../../Components/MenuAction/MenuAction";
 import {Link} from "react-router-dom";
 import permissions from "../../Utils/Permissions";
 import PrimaryButton from "../../Components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../Components/Buttons/SecondaryButton/SecondaryButton";
+import Overlay from "../../Components/Overlay/Overlay";
 
 const skillColorCondition = skill => {
     return ` ${skill === 'سرپرست' && 'text-blue bg-blue/15'} 
@@ -102,6 +104,22 @@ export default function Permissions() {
     const [showInvoicesStatus, setShowInvoicesStatus] = useState(false)
     const [invoicesStatus, setInvoicesStatus] = useState(invoices)
     const [selectedStatus, setSelectedStatus] = useState(null)
+    const [showPermissionContent, setShowPermissionContent] = useState(false)
+    const addNewPermissionRef = useRef(null)
+    const [isPrimaryPermission, setIsPrimaryPermission] = useState(false)
+
+    const addNewPermissionHandler = (event) => {
+        if (addNewPermissionRef.current.className === event.target.className) {
+            setShowPermissionContent(false)
+            setIsPrimaryPermission(false)
+        }
+    }
+
+    useEffect(() => {
+        if(!showPermissionContent) {
+            setIsPrimaryPermission(false)
+        }
+    }, [showPermissionContent])
 
 
     return (
@@ -140,7 +158,55 @@ export default function Permissions() {
                             <span>جستجو:</span>
                             <Input type='text' placeholder='جستجو...'/>
                         </div>
-                        <PrimaryButton title='افزودن مجوز' className='!w-auto'/>
+                        <PrimaryButton onClick={() => setShowPermissionContent(true)} title='افزودن مجوز' className='!w-auto'/>
+                        {/*   Add New Rule Wrapper   */}
+                        <div onClick={addNewPermissionHandler} ref={addNewPermissionRef}
+                             className={`fixed inset-0 overflow-auto flex justify-center items-center z-[1200] w-full h-full transition-all duration-300 ${showPermissionContent ? 'visible opacity-100' : 'invisible opacity-0'}`}>
+                            <div className='max-w-[560px] w-full h-fit bg-white rounded'>
+                                {/*  Add Event Wrapper Header  */}
+                                <div className={`flex items-center justify-end px-6 py-5`}>
+                                        <span onClick={() => {
+                                            setShowPermissionContent(false)
+                                            setIsPrimaryPermission(false)
+                                        }}
+                                              className='cursor-pointer text-muted flex items-center justify-center'>
+                                <BiX size='24px'/>
+                            </span>
+                                </div>
+                                <div className='flex flex-col pb-[72px] px-[72px]'>
+                                    <div
+                                        className='flex flex-col items-center gap-8 justify-center text-center mb-8'>
+                                        <h3 className='text-2xl font-Estedad-Medium text-title'>
+                                            افزودن مجوز جدید
+                                        </h3>
+                                        <span className='font-IranYekan-Medium text-2sm'>
+                                        مجوزهایی که می‌توانید استفاده و به کاربران خود اختصاص دهید.
+                                    </span>
+                                    </div>
+                                    <div className='mb-4'>
+                                        <Input type='text' label='نام مجوز' placeholder='نام مجوز'/>
+                                    </div>
+                                    <div>
+                                        <div className='flex items-center justify-start gap-2'>
+                                            <Input checked={isPrimaryPermission} onChange={() => setIsPrimaryPermission(prevState => !prevState)}
+                                                   className='!w-auto' type='checkbox'/>
+                                            <span className='font-IranYekan-Medium text-2sm'>
+                                                            تنظیم به عنوان مجوز اصلی
+                                                        </span>
+                                        </div>
+                                        <div className='mt-8 flex gap-6 justify-center'>
+                                            <PrimaryButton className='!w-auto' title='ایجاد مجوز'/>
+                                            <SecondaryButton onClick={() => {
+                                                setShowPermissionContent(false)
+                                                setIsPrimaryPermission(false)
+                                            }}
+                                                             title='انصراف'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Overlay className='!bg-black/50 !z-[1199]' show={showPermissionContent} setShow={setShowPermissionContent}/>
                     </div>
                 </div>
                 <div className='flex flex-col'>

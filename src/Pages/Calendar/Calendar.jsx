@@ -1,4 +1,4 @@
-import {BiChevronDown, BiChevronLeft, BiChevronRight, BiPlus, BiX} from "react-icons/bi";
+import {BiChevronLeft, BiChevronRight} from "react-icons/bi";
 import Box from "../../Components/Box/Box";
 import Input from "../../Components/Input/Input";
 import {useEffect, useRef, useState} from "react";
@@ -6,12 +6,12 @@ import DatePicker, {Calendar as ReactCalendar} from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import Overlay from "../../Components/Overlay/Overlay";
 import PrimaryButton from "../../Components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Components/Buttons/SecondaryButton/SecondaryButton";
-import {data} from "react-router-dom";
-import * as events from "events";
 import Content from "../../Components/Content/Content";
+
+const formatter = new Intl.DateTimeFormat('fa-IR', { month: 'numeric' });
+const monthName = formatter.format(new Date());
 
 export default function Calendar() {
     const [showEventLabels, setShowEventLabels] = useState(false)
@@ -24,7 +24,7 @@ export default function Calendar() {
     const [checkedItems, setCheckedItems] = useState(new Set())
     const [selectAll, setSelectAll] = useState(false)
     const [calendarYear, setCalendarYear] = useState(1403)
-    const [calendarMonth, setCalendarMonth] = useState(11)
+    const [calendarMonth, setCalendarMonth] = useState(+convertPersianNumbersToEnglish(monthName))
     const [dataCalendar, setDataCalendar] = useState({})
     const [eventTitle, setEventTitle] = useState('')
     const [eventLabel, setEventLabel] = useState({})
@@ -35,8 +35,8 @@ export default function Calendar() {
         {
             title: 'play with my brother',
             label: {title: 'شخصی', color: 'rgb(90, 141, 238)'},
-            start: {day: '9', month: '11', year: '1403'},
-            end: {day: '13', month: '11', year: '1403'}
+            start: {day: '9', month: '12', year: '1403'},
+            end: {day: '13', month: '12', year: '1403'}
         }
     ])
     const [eventLabels, setEventLabels] = useState([
@@ -46,7 +46,6 @@ export default function Calendar() {
         {id: 4, title: 'تعطیلات', color: 'rgb(57, 218, 138)', backgroundColor: 'rgba(57, 218, 138, 8%)'},
         {id: 5, title: 'سایر', color: 'rgb(0, 207, 221)', backgroundColor: 'rgba(0, 207, 221, 8%)'},
     ])
-
     const getApiCalendar = () => {
         fetch(`https://persian-calendar-api.sajjadth.workers.dev/?year=${calendarYear}&month=${calendarMonth}`)
             .then(res => res.json())
@@ -56,7 +55,6 @@ export default function Calendar() {
             })
     }
 
-
     useEffect(() => {
         getApiCalendar()
         document.addEventListener('mousedown', handleClickOutside) // when user clicked outside of guest menu closed it
@@ -64,17 +62,13 @@ export default function Calendar() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    }, []);
+    }, [calendarYear, calendarMonth]);
 
     let result = [];
     let daysOfMonthCopy = daysOfMonth?.slice()
     while (daysOfMonthCopy?.length) {
         result.push(daysOfMonthCopy.splice(0, 7));
     }
-
-    const getStartEventsForDay = (day) => {
-        return events.filter((event) => event.start.day.toString() === convertPersianNumbersToEnglish(day));
-    };
 
     function addGuestHandler(name) {
         if (selectedGuests.length) {
@@ -143,6 +137,7 @@ export default function Calendar() {
         } else {
             setCalendarMonth(prevState => prevState + 1)
         }
+        console.log(dataCalendar.header.jalali)
     }
 
     const calendarPreviousMonthHandler = () => {
@@ -152,6 +147,7 @@ export default function Calendar() {
         } else {
             setCalendarMonth(prevState => prevState - 1)
         }
+        console.log(dataCalendar.header.jalali)
     }
 
     function convertPersianNumbersToEnglish(input) {
@@ -184,10 +180,15 @@ export default function Calendar() {
             start: eventStart,
             end: eventEnd
         }])
+        setShowAddEventContent(false)
     }
 
     const getDayEvents = (day) => {
-        return events.filter((event) => convertPersianNumbersToEnglish(day) >= +event.start.day && convertPersianNumbersToEnglish(day) <= +event.end.day);
+        return events.filter((event) => {
+            if((convertPersianNumbersToEnglish(day) >= +event.start.day && convertPersianNumbersToEnglish(day) <= +event.end.day) && (calendarMonth >= +event.start.month && calendarMonth <= +event.end.month)){
+                return event
+            }
+        });
     };
 
     const isStartOfEvent = (day) => {
@@ -197,9 +198,9 @@ export default function Calendar() {
 
     return (
         <div className='container'>
-            <div className='flex'>
+            <div className='flex flex-col-reverse lg:flex-row gap-y-6'>
                 {/*  Calendar Right Side Wrapper  */}
-                <div className='basis-1/5'>
+                <div className='lg:basis-1/5'>
                     {/*  Add Event Button  */}
                     <Box className='shadow-none rounded-none !h-auto'>
                         <PrimaryButton title='افزودن رویداد' icon='BiPlus' iconSize='20px'
@@ -396,7 +397,7 @@ export default function Calendar() {
                         </div>
                     </Content>
                     {/*  Right Side Calendar  */}
-                    <Box className='shadow-none rounded-none border-y border-y-zinc !h-auto'>
+                    <Box className='shadow-none rounded-none border-y border-y-zinc !h-auto flex items-center justify-center'>
                         <ReactCalendar
                             calendar={persian}
                             locale={persian_fa}
@@ -409,12 +410,12 @@ export default function Calendar() {
                     </Box>
 
                     {/*   Calendar Events Filtering   */}
-                    <Box className='shadow-none rounded-none !h-auto'>
+                    <Box className='shadow-none rounded-none !h-auto text-center lg:text-right'>
                         <h6 className='font-IranYekan-Bold text-muted text-xs'>
                             فیلتر
                         </h6>
                         <div className='mt-6'>
-                            <ul className='flex flex-col gap-4'>
+                            <ul className='flex flex-col items-center lg:items-start justify-center lg:justify-start gap-4'>
                                 <li className='flex items-center gap-2'>
                                     <Input checked={selectAll} onChange={handelSelectAll} className='!w-auto'
                                            type='checkbox' inputClassName='checked:bg-blue checked:border-blue'/>
@@ -455,10 +456,10 @@ export default function Calendar() {
                     </Box>
                 </div>
                 {/*  Calendar Left Side Wrapper  */}
-                <div className='basis-4/5 flex flex-col'>
+                <div className='lg:basis-4/5 flex flex-col'>
                     {/* Calendar Header */}
                     <Box className='shadow-none rounded-none !h-auto'>
-                        <div className='flex items-center justify-between h-10'>
+                        <div className='flex items-center justify-between gap-4 flex-wrap'>
                             {/*  Calendar Selection Month  */}
                             <div className='flex items-center gap-4'>
                                 <div className='flex items-center gap-2'>
@@ -531,7 +532,7 @@ export default function Calendar() {
                                                                                     backgroundColor: `${event.label.color.replace(')', ',15%)').replace('rgb', 'rgba')}`,
                                                                                     color: `${event.label.color}`
                                                                                 }}
-                                                                                     className='px-3 flex items-center justify-center text-center h-12 relative font-IranYekan-Bold text-blue text-sm rounded-sm'>
+                                                                                     className='px-3 flex items-center justify-start text-center h-12 relative font-IranYekan-Bold text-blue text-sm rounded-sm'>
                                                                                     {
                                                                                         isStartOfEvent(item.day.jalali) && (
                                                                                             <>

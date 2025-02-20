@@ -291,7 +291,7 @@ export default function InvoiceList() {
                         </div>
                     </div>
                 </div>
-                <div className='h-screen'>
+                <div className='flex flex-col'>
                     <DataGrid
                         sx={{
                             '.MuiDataGrid-columnSeparator': {
@@ -332,7 +332,8 @@ export default function InvoiceList() {
                                 width: 'auto !important'
                             },
                             '.css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone': {
-                                width: '100% !important'
+                                width: '100% !important',
+                                position: 'static'
                             },
                             '.MuiDataGrid-cell:focus': {
                                 outline: 'none !important'
@@ -341,10 +342,13 @@ export default function InvoiceList() {
                                 backgroundColor: 'transparent !important'
                             },
                             '.css-1gtv474-MuiDataGrid-columnHeaders': {
-                                width: 'auto !important'
+                                width: '100% !important'
                             },
                             '.css-16z8vpz': {
                                 display: 'none !important'
+                            },
+                            '.css-1vigakz-MuiDataGrid-virtualScroller': {
+                                overflow: 'visible !important'
                             }
                         }}
                         disableRowSelectionOnClick

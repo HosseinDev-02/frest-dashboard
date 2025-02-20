@@ -1,9 +1,9 @@
 import Box from "../../Components/Box/Box";
-import UserConnectionBox from "../../Components/UserConnectionBox/UserConnectionBox";
 import Input from "../../Components/Input/Input";
 import {useState} from "react";
 import SecondaryButton from "../../Components/Buttons/SecondaryButton/SecondaryButton";
 import PrimaryButton from "../../Components/Buttons/PrimaryButton/PrimaryButton";
+import UserInfoBox from "../../Components/UserInfoBox/UserInfoBox";
 
 const connectedAccounts = [
     {
@@ -110,7 +110,7 @@ export default function Connections() {
                 <div className='flex flex-col gap-6'>
                     {
                         userConnectedAccounts.map(item => (
-                            <UserConnectionBox title={item.title} img={item.icon} caption={item.caption} renderButton={() => (
+                            <UserInfoBox captionClassName='!text-2sm !text-caption' title={item.title} image={item.icon} caption={item.caption} renderShape={() => (
                                 <Input onChange={() => onChangeHandler(item.id)} checked={item.status} checkIcon='BiCheck' uncheckIcon='BiX' type='checkbox'/>
                             )}/>
                         ))
@@ -130,7 +130,7 @@ export default function Connections() {
                 <div className='flex flex-col gap-6'>
                     {
                         userSocialAccounts.map(item => (
-                            <UserConnectionBox title={item.title} img={item.icon} connection
+                            <UserInfoBox title={item.title} image={item.icon} connected={item.isActive}
                                                renderCaption={() => (
                                                    <>
                                                        {
@@ -145,7 +145,7 @@ export default function Connections() {
                                                        }
                                                    </>
                                                )}
-                                               renderButton={() => (
+                                               renderShape={() => (
                                                    <>
                                                        {
                                                            item.isActive ? (

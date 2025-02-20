@@ -1,9 +1,23 @@
-import UsersBox from "../../Components/UsersBox/UsersBox";
 import Box from "../../Components/Box/Box";
 import Input from "../../Components/Input/Input";
 import {useEffect, useState} from "react";
 import MyDataTable from "../../Components/MyDataTable/MyDataTable";
 import {users as usersData} from "../../Utils/Users";
+import UserInfoBox from "../../Components/UserInfoBox/UserInfoBox";
+
+
+const CustomCaptionForBox = ({ title, percent, caption, percentColor }) => {
+    return (
+        <div className='flex flex-col items-start gap-2 font-IranYekan-Medium text-2xs mt-2'>
+            <div className='flex items-center gap-2'>
+                <span className='text-2xl text-title'>{title}</span>
+                <span className={`!font-IranYekan-Bold ${percent < 0 ? 'text-red' : 'text-success'}`} style={{ color: percentColor}}>({percent < 0 ? '-' : '+'}{percent}%)</span>
+            </div>
+            <span className='font-IranYekan-Bold'>{caption}</span>
+        </div>
+    )
+}
+
 
 export default function Users() {
 
@@ -60,38 +74,13 @@ export default function Users() {
     return (
         <div className='container'>
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'>
-                <UsersBox
-                    title='جلسه'
-                    count={21459}
-                    caption='مجموع کاربران'
-                    icon='BiUser'
-                    iconColor='rgb(90, 141, 238)'
-                    percent={29}
-                />
-                <UsersBox
-                    title='کاربران ویژه'
-                    count={4567}
-                    caption='تحلیل هفته اخیر'
-                    icon='BiUserPlus'
-                    iconColor='rgb(255, 91, 92)'
-                    percent={18}
-                />
-                <UsersBox
-                    title='کاربران فعال'
-                    count={19860}
-                    caption='تحلیل هفته اخیر'
-                    icon='BiGroup'
-                    iconColor='rgb(57, 218, 138)'
-                    percent={-14}
-                />
-                <UsersBox
-                    title='کاربران در انتظار'
-                    count={237}
-                    caption='تحلیل هفته اخیر'
-                    icon='BiUserVoice'
-                    iconColor='rgb(253, 126, 20)'
-                    percent={42}
-                />
+                <UserInfoBox icon='BiUser' iconSize={24} iconClassName='!w-auto !h-auto !p-2' className='bg-white p-[22px] shadow shadow-black/15 rounded' title='جلسه' renderCaption={() => <CustomCaptionForBox title='21459' percent={29} caption='مجموع کاربران' />}/>
+
+                <UserInfoBox  icon='BiUserPlus' iconSize={24} iconClassName='!w-auto !h-auto !p-2 !bg-red/15 !text-red' className='bg-white p-[22px] shadow shadow-black/15 rounded' title='کاربران ویژه' renderCaption={() => <CustomCaptionForBox title='4567' percent={18} caption='تحلیل هفته اخیر' />}/>
+
+                <UserInfoBox  icon='BiGroup' iconSize={24} iconClassName='!w-auto !h-auto !p-2 !bg-success/15 !text-success' className='bg-white p-[22px] shadow shadow-black/15 rounded' title='کاربران فعال' renderCaption={() => <CustomCaptionForBox title='19860' percent={-14} caption='تحلیل هفته اخیر' />}/>
+
+                <UserInfoBox  icon='BiUserVoice' iconSize={24} iconClassName='!w-auto !h-auto !p-2 !bg-orange/15 !text-orange' className='bg-white p-[22px] shadow shadow-black/15 rounded' title='کاربران در انتظار' renderCaption={() => <CustomCaptionForBox title='21459' percent={42} caption='تحلیل هفته اخیر' />}/>
             </div>
             <div className='mt-6'>
                 <Box className='border-b border-zinc rounded-none'>

@@ -1,4 +1,4 @@
-import {BiChevronDown} from "react-icons/bi";
+import {BiChevronDown, BiHide, BiShow} from "react-icons/bi";
 import * as icons from "react-icons/bi";
 import React, {useState} from "react";
 
@@ -29,6 +29,7 @@ export default function Input(
 ) {
         const CheckIcon = icons[checkIcon]
         const UncheckIcon = icons[uncheckIcon]
+        const [showPass, setShowPass] = useState(false)
     return (
         <>
             {
@@ -54,7 +55,7 @@ export default function Input(
                     <div className={`flex items-start flex-col gap-2 w-full ${className}`}>
                         {label && <span className={`font-IranYekan-Medium text-xs ${labelClassName}`}>{label}</span>}
                         <input checked={checked} onChange={onChange} {...inputProps}
-                               className={`shrink-0 w-[18px] h-[18px] appearance-none border checked:bg-check border-[#bec5cc] cursor-pointer rounded ${inputClassName}`}
+                               className={`shrink-0 w-[18px] h-[18px] appearance-none border checked:bg-check border-[#bec5cc] cursor-pointer rounded checked:bg-blue checked:border-blue checked:outline outline-1 outline-zinc ${inputClassName}`}
                                type="checkbox"/>
                     </div>
                 ) : type === 'selectbox' ? (
@@ -122,9 +123,30 @@ export default function Input(
                                     </span>
                             </div>
                     </label>
+                ) : type === 'password' ? (
+                    <div className={`flex items-start flex-col gap-2 w-full ${className}`}>
+                            {
+                                label && (
+                                    <span className={`font-IranYekan-Medium text-xs ${labelClassName}`}>{label}</span>
+                                )
+                            }
+                            <div className='relative w-full'>
+                                    <input ref={ref} onBlur={onBlur} value={value} onChange={onChange} onFocus={onFocus}
+                                           type={`${showPass ? 'text' : 'password'}`} placeholder={placeholder}
+                                           className={`w-full h-10 shrink-0 rounded border border-zinc focus:border-blue outline-none placeholder:transition-all placeholder:duration-300 focus:placeholder:pr-2 px-4 transition-all focus:shadow-xs duration-300 font-IranYekan-Medium text-2sm placeholder:text-muted ${inputClassName}`}/>
+                                    <span onClick={() => setShowPass(prevState =>  !prevState)} className='flex items-center justify-center absolute left-2 top-0 bottom-0 my-auto cursor-pointer'>
+                                            {
+                                                    showPass ? (
+                                                        <BiShow size='16px'/>
+                                                    ) : (
+                                                        <BiHide size='16px'/>
+                                                    )
+                                            }
+                                    </span>
+                            </div>
+                    </div>
                 ) : (
-                    <>
-                    </>
+                    <></>
                 )
             }
         </>

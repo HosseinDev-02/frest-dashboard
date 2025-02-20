@@ -1,7 +1,7 @@
 import RulesPermissions from "./RulesPermissions";
 import HeaderSection from "../../Components/HeaderSection/HeaderSection";
-import React, {useEffect, useState} from "react";
-import { rules } from '../../Utils/Rules.js'
+import React, {useEffect, useRef, useState} from "react";
+import {ruleAccess, rules} from '../../Utils/Rules.js'
 import RuleBox from "../../Components/RuleBox/RuleBox";
 import Box from "../../Components/Box/Box";
 import PrimaryButton from "../../Components/Buttons/PrimaryButton/PrimaryButton";
@@ -15,12 +15,15 @@ import {
     BiDownArrowCircle, BiEdit,
     BiInfoCircle,
     BiPaperPlane, BiTrash,
-    BiTrendingUp
+    BiTrendingUp, BiX
 } from "react-icons/bi";
 import {invoicesData, invoicesStatus as invoices} from "../../Utils/Invoices";
 import MenuAction from "../../Components/MenuAction/MenuAction";
 import {Link} from "react-router-dom";
 import {styled, Tooltip, tooltipClasses} from "@mui/material";
+import Content from "../../Components/Content/Content";
+import SecondaryButton from "../../Components/Buttons/SecondaryButton/SecondaryButton";
+import Overlay from "../../Components/Overlay/Overlay";
 
 const HtmlTooltip = styled(({className, ...props}) => (
     <Tooltip {...props} placement='top' classes={{popper: className}}/>
@@ -53,7 +56,8 @@ export default function Rules() {
             sortable: false,
             renderCell: params => (
                 <>
-                    <MenuAction deleteHandler={() => removeInvoiceHandler(params.row.id)} link={`/invoice/edit/${params.row.id}`}  {...params}/>
+                    <MenuAction deleteHandler={() => removeInvoiceHandler(params.row.id)}
+                                link={`/invoice/edit/${params.row.id}`}  {...params}/>
                 </>
             )
         },
@@ -191,6 +195,12 @@ export default function Rules() {
     const [showInvoicesStatus, setShowInvoicesStatus] = useState(false)
     const [invoicesStatus, setInvoicesStatus] = useState(invoices)
     const [selectedStatus, setSelectedStatus] = useState(null)
+    const [showNewRuleContent, setShowNewRuleContent] = useState(false)
+
+    const addNewUserWrapper = useRef(null)
+    const [selected, setSelected] = useState([])
+    const [userAccessRule, setUserAccessRule] = useState(ruleAccess)
+    const [selectedAll, setSelectedAll] = useState(false)
 
 
     const removeInvoiceHandler = invoiceID => {
@@ -213,16 +223,64 @@ export default function Rules() {
         return Math.min(rows.length, paginationModal.pageSize) * rowHeight + rowHeaderHeight + paginationHeight
     }
     useEffect(() => {
-        if(selectedStatus) {
+        if (selectedStatus) {
             let filteredInvoices = invoicesData.filter(invoice => invoice.status === selectedStatus.title)
-            if(filteredInvoices.length) {
+            if (filteredInvoices.length) {
                 setRows(filteredInvoices)
             }
-        }else {
+        } else {
             setRows(invoicesData)
         }
+
     }, [selectedStatus]);
 
+    const addNewUserWrapperClickHandler = (event) => {
+        if (addNewUserWrapper.current.className === event.target.className) {
+            setShowNewRuleContent(false)
+        }
+    }
+
+    const selectedAllHandler = () => {
+        if(selectedAll) {
+            setUserAccessRule(prevUserAccessRule => prevUserAccessRule.map(userAccess => {
+                userAccess.accessLevel.map(access => access.status = false)
+                return userAccess
+            }))
+            setSelectedAll(false)
+        } else {
+            setUserAccessRule(prevUserAccessRule => prevUserAccessRule.map(userAccess => {
+                userAccess.accessLevel.map(access => access.status = true)
+                return userAccess
+            }))
+            setSelectedAll(true)
+        }
+    }
+
+    useEffect(() => {
+        let allAccess = userAccessRule.every(userAccess => userAccess.accessLevel.every(access => access.status === true))
+        if(allAccess) {
+            setSelectedAll(true)
+        }else {
+            setSelectedAll(false)
+        }
+    }, [userAccessRule])
+
+
+    const selectHandler = (userAccessID, accessID) => {
+        setUserAccessRule(prevUserAccessRule => prevUserAccessRule.map(userAccess => {
+            if (userAccess.id === userAccessID) {
+                userAccess.accessLevel.map(access => {
+                    if (access.id === accessID) {
+                        access.status = !access.status
+                        return access
+                    }
+                })
+                return userAccess
+            }
+            return userAccess
+        }))
+
+    }
     return (
         <div>
             <HeaderSection
@@ -245,7 +303,93 @@ export default function Rules() {
                                      alt="lady-with"/>
                             </div>
                             <div className='flex items-center md:items-end flex-col gap-4'>
-                                <PrimaryButton title='افزودن نقش جدید' className='!w-auto'/>
+                                <PrimaryButton onClick={() => setShowNewRuleContent(true)} title='افزودن نقش جدید'
+                                               className='!w-auto'/>
+                                {/*   Add New Rule Wrapper   */}
+                                <div onClick={addNewUserWrapperClickHandler} ref={addNewUserWrapper}
+                                     className={`fixed inset-0 overflow-auto flex justify-center z-[1200] w-full h-full transition-all duration-300 ${showNewRuleContent ? 'visible opacity-100' : 'invisible opacity-0'}`}>
+                                    <div className='max-w-[800px] w-full bg-white rounded my-4'>
+                                        {/*  Add Event Wrapper Header  */}
+                                        <div className={`flex items-center justify-end px-6 py-5`}>
+                                        <span onClick={() => setShowNewRuleContent(false)}
+                                              className='cursor-pointer text-muted flex items-center justify-center'>
+                                <BiX size='24px'/>
+                            </span>
+                                        </div>
+                                        <div className='flex flex-col gap-4 p-[72px]'>
+                                            <div
+                                                className='flex flex-col items-center gap-4 justify-center text-center'>
+                                                <h3 className='text-2xl font-Estedad-Medium text-title'>
+                                                    افزودن نقش جدید
+                                                </h3>
+                                                <span className='font-IranYekan-Medium text-2sm'>
+                                        مجوزهای نقش را تنظیم کنید
+                                    </span>
+                                            </div>
+                                            <div className='mb-6'>
+                                                <Input type='text' label='نام نقش' placeholder='نام نقش را وارد کنید'/>
+                                            </div>
+                                            <h4 className='text-title font-IranYekan-Medium text-lg mt-4'>
+                                                مجوزهای نقش
+                                            </h4>
+                                            <div>
+                                                <table className='w-full font-IranYekan-Medium text-2sm'>
+                                                    <thead className='text-right'>
+                                                    <tr className='child:py-2.5 child:pl-6 border-b border-zinc'>
+                                                        <th className='w-2/12'>
+                                                            دسترسی مدیریت
+                                                        </th>
+                                                        <th className='w-1/12'>
+                                                            <div className='flex items-center justify-start gap-2'>
+                                                                <Input checked={selectedAll} onChange={selectedAllHandler} className='!w-auto' type='checkbox'/>
+                                                                <span className=''>
+                                                            انتخاب همه
+                                                        </span>
+                                                            </div>
+                                                        </th>
+                                                        <th className='w-1/12'></th>
+                                                        <th className='w-1/12'></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        userAccessRule.map(userAccess => (
+                                                            <tr key={userAccess.id}
+                                                                className='child:py-2.5 child:pl-6 border-b border-zinc'>
+                                                                <td>
+                                                                    {userAccess.title}
+                                                                </td>
+                                                                {
+                                                                    userAccess.accessLevel.map(access => (
+                                                                        <td key={access.id}>
+                                                                            <div
+                                                                                className='flex items-center justify-start gap-2'>
+                                                                                <Input checked={access.status}
+                                                                                       onChange={() => selectHandler(userAccess.id, access.id)}
+                                                                                       className='!w-auto'
+                                                                                       type='checkbox'/>
+                                                                                <span>
+                                                            {access.title}
+                                                        </span>
+                                                                            </div>
+                                                                        </td>
+                                                                    ))
+                                                                }
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                                <div className='mt-6 flex gap-6 justify-center'>
+                                                    <PrimaryButton className='!w-auto' title='ثبت'/>
+                                                    <SecondaryButton onClick={() => setShowNewRuleContent(false)} title='انصراف'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Overlay show={showNewRuleContent} setShow={() => setShowNewRuleContent(false)}
+                                         className='!bg-black/50 !z-[1199]'/>
                                 <span className='font-IranYekan-Medium text-2sm leading-[30px]'>
                                     اگر نقشی وجود ندارد اضافه کنید
                                 </span>
@@ -254,6 +398,7 @@ export default function Rules() {
                     </Box>
                 </>
             </div>
+            {/*   Rules Table Content   */}
             <div className='bg-white mt-6 h-full'>
                 <div className='flex flex-col gap-4 md:flex-row items-center justify-between px-[22px] py-4'>
                     <div className='flex items-center gap-4'>

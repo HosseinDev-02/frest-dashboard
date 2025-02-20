@@ -339,17 +339,10 @@ export default function MyDataTable({ filteredUsers }) {
     }
 
     useEffect(() => {
-        console.log('Filtered Users Enable')
         if(filteredUsers?.length) {
             setRows(filteredUsers)
-            console.log(
-                'Set Filtered Users'
-            )
         }else {
             setRows(users)
-            console.log(
-                'Set Rows'
-            )
         }
     }, [filteredUsers]);
 
@@ -542,7 +535,7 @@ export default function MyDataTable({ filteredUsers }) {
                     </Content>
                 </div>
             </div>
-            <div className='h-[600px]'>
+            <div className='flex flex-col'>
                 <DataGrid
                     sx={{
                         '.MuiDataGrid-columnSeparator': {
@@ -583,7 +576,8 @@ export default function MyDataTable({ filteredUsers }) {
                             width: 'auto !important'
                         },
                         '.css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone': {
-                            width: '100% !important'
+                            width: '100% !important',
+                            position: 'static'
                         },
                         '.MuiDataGrid-cell:focus': {
                             outline: 'none !important'
@@ -592,10 +586,13 @@ export default function MyDataTable({ filteredUsers }) {
                             backgroundColor: 'transparent !important'
                         },
                         '.css-1gtv474-MuiDataGrid-columnHeaders': {
-                            width: 'auto !important'
+                            width: '100% !important'
                         },
                         '.css-16z8vpz': {
                             display: 'none !important'
+                        },
+                        '.css-1vigakz-MuiDataGrid-virtualScroller': {
+                            overflow: 'visible !important'
                         }
                     }}
                     disableRowSelectionOnClick

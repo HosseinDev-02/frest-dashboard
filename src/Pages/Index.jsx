@@ -18,7 +18,7 @@ import {
     BiX,
     BiPlusCircle, BiEnvelopeOpen, BiCreditCard, BiSupport, BiHelpCircle, BiPowerOff, BiMenu
 } from "react-icons/bi";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import WidgetBox from "../Components/WidgetBox/WidgetBox";
 import NotificationBox from "../Components/NotificationBox/NotificationBox";
 import Overlay from "../Components/Overlay/Overlay";
@@ -45,6 +45,11 @@ export default function Index() {
     ])
     const widgetsWrapper = useRef(null)
     const notificationsWrapper = useRef(null)
+
+    const location = useLocation()
+    const { pathname } = location
+
+    console.log(pathname)
 
 
 
@@ -122,21 +127,21 @@ export default function Index() {
                         className={`mt-2.5 overflow-hidden transition-all duration-300`}>
                         <ul className='flex flex-col gap-0.5 font-IranYekan-Medium text-2sm text-[#bec5cc] px-[15px]'>
                             <Link to='/'
-                                  className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md bg-blue text-white'>
+                                  className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${pathname === '/' ? 'bg-blue text-white' : 'hover:bg-[#2a3645]'}`}>
                                 <BiHomeCircle className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     داشبورد
                                 </span>
                             </Link>
                             <Link to='/calendar'
-                                  className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
+                                  className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${pathname === 'calendar' ? 'bg-blue text-white' : 'hover:bg-[#2a3645]'}`}>
                                 <FaRegCalendarAlt className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     تقویم
                                 </span>
                             </Link>
                             <Link to='/task-board'
-                                  className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
+                                  className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${pathname === 'task-board' ? 'bg-blue text-white' : 'hover:bg-[#2a3645]'}`}>
                                 <BiGrid className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     تخته وظایف
@@ -144,7 +149,7 @@ export default function Index() {
                             </Link>
                             <li className={`overflow-hidden transition-all duration-300 ${showTransactionsSubmenu ? 'bg-[#212e3d] h-[174px]' : 'h-[42px]'} rounded-md`}>
                                 <button onClick={() => setShowTransactionsSubmenu(prevState => !prevState)}
-                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showTransactionsSubmenu && 'hover:bg-[#2a3645]'} rounded-md`}>
+                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showTransactionsSubmenu && 'hover:bg-[#2a3645]'} rounded-md ${pathname.includes('invoice') && 'bg-blue text-white'}`}>
                                     <span className='flex items-center gap-2'>
                                 <BiFoodMenu className='shrink-0' size='20px'/>
                                     <span
@@ -156,7 +161,7 @@ export default function Index() {
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
                                     <Link to='/invoice/list'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('invoice/list') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -164,7 +169,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/invoice/preview'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('invoice/preview') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -172,7 +177,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/invoice/add'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('invoice/add') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -182,14 +187,14 @@ export default function Index() {
                                 </ul>
                             </li>
                             <Link to='/users'
-                                  className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
+                                  className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${pathname.includes('users') ? 'bg-blue text-white' : 'hover:bg-[#2a3645]'}`}>
                                 <BiUser className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     کاربران
                                 </span>
                             </Link>
                             <Link to='/pricing'
-                                  className='flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 hover:bg-[#2a3645] rounded-md'>
+                                  className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${pathname.includes('pricing') ? 'bg-blue text-white' : 'hover:bg-[#2a3645]'}`}>
                                 <BiDollar className='shrink-0' size='20px'/>
                                 <span className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
                                     قیمت گذاری
@@ -197,7 +202,7 @@ export default function Index() {
                             </Link>
                             <li className={`overflow-hidden transition-all duration-300 ${showRulesSubmenu ? 'bg-[#212e3d] h-32' : 'h-[42px]'} rounded-md`}>
                                 <button onClick={() => setShowRulesSubmenu(prevState => !prevState)}
-                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showRulesSubmenu && 'hover:bg-[#2a3645]'} rounded-md`}>
+                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showRulesSubmenu && 'hover:bg-[#2a3645]'} rounded-md ${pathname.includes('rules&permissions') && 'bg-blue text-white'}`}>
                                     <span className='flex items-center gap-2'>
                                 <BiCheckShield className='shrink-0' size='20px'/>
                                     <span
@@ -208,15 +213,15 @@ export default function Index() {
                                     <MdKeyboardArrowLeft className='shrink-0' size='20px'/>
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
-                                    <Link to='/rules&permissions/rules'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                    <Link to='/rules&permissions/ruleList'
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('ruleList') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     نقش‌ها
                                 </span>
                                     </Link>
-                                    <Link to='/rules&permissions/permissions'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                    <Link to='/rules&permissions/permissionList'
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('permissionList') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     مجوزها
@@ -226,7 +231,7 @@ export default function Index() {
                             </li>
                             <li className={`overflow-hidden transition-all duration-300 ${showUserProfileSubmenu ? 'bg-[#212e3d] h-[216px]' : 'h-[42px]'} rounded-md`}>
                                 <button onClick={() => setShowUserProfileSubmenu(prevState => !prevState)}
-                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showUserProfileSubmenu && 'hover:bg-[#2a3645]'} rounded-md`}>
+                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showUserProfileSubmenu && 'hover:bg-[#2a3645]'} rounded-md ${pathname.includes('/user/') && 'bg-blue text-white'}`}>
                                     <span className='flex items-center gap-2'>
                                 <RiFileUserLine className='shrink-0' size='20px'/>
                                     <span
@@ -238,28 +243,28 @@ export default function Index() {
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
                                     <Link to='/user/profile'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/user/profile') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     پروفایل
                                 </span>
                                     </Link>
                                     <Link to='/user/projects'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/user/projects') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     پروژه‌ها
                                 </span>
                                     </Link>
                                     <Link to='/user/team'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/user/team') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     تیم‌ها
                                 </span>
                                     </Link>
                                     <Link to='/user/connections'
-                                          className='flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md'>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/user/connections') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span>
                                     اتصالات
@@ -269,7 +274,7 @@ export default function Index() {
                             </li>
                             <li className={`overflow-hidden transition-all duration-300 ${showPanelSetting ? 'bg-[#212e3d] h-[260px]' : 'h-[42px]'} rounded-md`}>
                                 <button onClick={() => setShowPanelSetting(prevState => !prevState)}
-                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showPanelSetting && 'hover:bg-[#2a3645]'} rounded-md`}>
+                                        className={`py-2.5 pl-2.5 pr-3.5 flex items-center justify-between transition-colors duration-300 gap-10 w-full ${!showPanelSetting && 'hover:bg-[#2a3645]'} rounded-md ${pathname.includes('/account-setting') && 'bg-blue text-white'}`}>
                                     <span className='flex items-center gap-2'>
                                 <IoSettingsOutline className='shrink-0' size='20px'/>
                                     <span
@@ -281,7 +286,7 @@ export default function Index() {
                                 </button>
                                 <ul className={`child-hover:bg-[#2a3645] flex flex-col gap-0.5`}>
                                     <Link to='/account-setting/account'
-                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/account-setting/account') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -289,7 +294,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/account-setting/security'
-                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/account-setting/security') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -297,7 +302,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/account-setting/plans'
-                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/account-setting/plans') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -305,7 +310,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/account-setting/notifications'
-                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/account-setting/notifications') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>
@@ -313,7 +318,7 @@ export default function Index() {
                                 </span>
                                     </Link>
                                     <Link to='/account-setting/connections'
-                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md`}>
+                                          className={`flex items-center gap-[15px] py-2.5 px-[21px] transition-colors duration-300 rounded-md ${pathname.includes('/account-setting/connections') && 'bg-[#2a3645]'}`}>
                                         <span className='bg-[#bec5cc] rounded-full w-1.5 h-1.5'></span>
                                         <span
                                             className={`sidebar-menu-text ${sidebarIsOpen ? 'xl:opacity-100' : 'xl:opacity-0'}`}>

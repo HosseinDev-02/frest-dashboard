@@ -15,8 +15,6 @@ import {
 import TimeActivityBox from "../../Components/TimeActivityBox/TimeActivityBox";
 import UserBox from "../../Components/UserBox/UserBox";
 import * as React from "react";
-import UserConnectionBox from "../../Components/UserConnectionBox/UserConnectionBox";
-import UserTeamBox from "../../Components/UserTeamBox/UserTeamBox";
 import Input from "../../Components/Input/Input";
 import MyPagination from "../../Components/MyPagination/MyPagination";
 import {DataGrid} from "@mui/x-data-grid";
@@ -25,6 +23,7 @@ import {projects as initialRows} from "../../Utils/Projects";
 import Members from "../../Components/Members/Members";
 import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 import MenuAction from "../../Components/MenuAction/MenuAction";
+import UserInfoBox from "../../Components/UserInfoBox/UserInfoBox";
 
 
 const rowHeight = 77
@@ -317,15 +316,15 @@ export default function UserProfileSetting() {
                                 خط زمانی فعالیت
                             </h4>
                             <div className='flex flex-col gap-4 my-6'>
-                                <UserConnectionBox title='استیو راجرز' connection={45} img='/images/avatars/1.png'
+                                <UserInfoBox title='استیو راجرز' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>45 اتصال</span>} image='/images/avatars/1.png'
                                                    active={false}/>
-                                <UserConnectionBox title='اولیور کوئین' connection='1.32k' img='/images/avatars/4.png'
+                                <UserInfoBox title='اولیور کوئین' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>124 اتصال</span>} image='/images/avatars/4.png'
                                                    active={true}/>
-                                <UserConnectionBox title='امیلیا کلارک' connection={125} img='/images/avatars/6.png'
+                                <UserInfoBox connected={true} title='امیلیا کلارک' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>1.2k اتصال</span>} image='/images/avatars/6.png'
                                                    active={true}/>
-                                <UserConnectionBox title='بیل گیتس' connection={456} img='/images/avatars/10.png'
+                                <UserInfoBox title='بیل گیتس' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>89 اتصال</span>} image='/images/avatars/10.png'
                                                    active={false}/>
-                                <UserConnectionBox title='دیوید بکهام' connection='1.2k' img='/images/avatars/14.png'
+                                <UserInfoBox connected={true} title='دیوید بکهام' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>2.32k اتصال</span>} image='/images/avatars/14.png'
                                                    active={false}/>
                             </div>
                             <div className='text-center'>
@@ -342,11 +341,11 @@ export default function UserProfileSetting() {
                                 تیم ها
                             </h4>
                             <div className='flex flex-col gap-4 my-6'>
-                                <UserTeamBox title='توسعه دهندگان React' members={72} role='توسعه دهنده' logo='/images/icons/react-label.png'/>
-                                <UserTeamBox title='تیم پشتیبانی' members={122} role='پشتیبانی' logo='/images/icons/support-label.png'/>
-                                <UserTeamBox title='طراحان UI' members={86} role='طراح' logo='/images/icons/figma-label.png'/>
-                                <UserTeamBox title='توسعه دهندگان Vue.js' members={46} role='توسعه دهنده' logo='/images/icons/vue-label.png'/>
-                                <UserTeamBox title='بازاریابی دیجیتال' members={187} role='بازاریابی' logo='/images/icons/twitter-label.png'/>
+                                <UserInfoBox title='توسعه دهندگان React' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>72 عضو</span>} renderShape={() => <span className='text-xs font-IranYekan-Medium rounded px-2 py-1 bg-red/15 text-red'>توسعه دهنده</span>} image='/images/icons/react-label.png'/>
+                                <UserInfoBox title='تیم پشتیبانی' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>122 عضو</span>} renderShape={() => <span className='text-xs font-IranYekan-Medium rounded px-2 py-1 bg-blue/15 text-blue'>پشتیبانی</span>} image='/images/icons/support-label.png'/>
+                                <UserInfoBox title='طراحان UI' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>86 عضو</span>} renderShape={() => <span className='text-xs font-IranYekan-Medium rounded px-2 py-1 bg-cyan/15 text-cyan'>طراح</span>} image='/images/icons/figma-label.png'/>
+                                <UserInfoBox title='توسعه دهندگان Vue.js' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>46 عضو</span>} renderShape={() => <span className='text-xs font-IranYekan-Medium rounded px-2 py-1 bg-secondary/15 text-secondary'>توسعه دهنده</span>} image='/images/icons/vue-label.png'/>
+                                <UserInfoBox title='بازاریابی دیجیتال' renderCaption={() => <span className='text-2xs text-muted font-IranYekan-Medium'>187 عضو</span>} renderShape={() => <span className='text-xs font-IranYekan-Medium rounded px-2 py-1 bg-success/15 text-success'>بازاریابی</span>} image='/images/icons/twitter-label.png'/>
                             </div>
                             <div className='text-center'>
                                 <a className='font-IranYekan-Medium text-2sm text-blue' href="#">
