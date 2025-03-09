@@ -505,7 +505,8 @@ export default function Rules() {
                                 height: 'auto !important',
                                 minHeight: 'none !important',
                                 maxHeight: 'none !important',
-                                width: '100% !important'
+                                width: '100% !important',
+                                position: 'static !important'
                             },
                             '.css-1vouojk': {
                                 height: 'auto !important',
