@@ -241,7 +241,7 @@ export default function Rules() {
     }
 
     const selectedAllHandler = () => {
-        if(selectedAll) {
+        if (selectedAll) {
             setUserAccessRule(prevUserAccessRule => prevUserAccessRule.map(userAccess => {
                 userAccess.accessLevel.map(access => access.status = false)
                 return userAccess
@@ -258,9 +258,9 @@ export default function Rules() {
 
     useEffect(() => {
         let allAccess = userAccessRule.every(userAccess => userAccess.accessLevel.every(access => access.status === true))
-        if(allAccess) {
+        if (allAccess) {
             setSelectedAll(true)
-        }else {
+        } else {
             setSelectedAll(false)
         }
     }, [userAccessRule])
@@ -341,7 +341,9 @@ export default function Rules() {
                                                         </th>
                                                         <th className='w-1/12'>
                                                             <div className='flex items-center justify-start gap-2'>
-                                                                <Input checked={selectedAll} onChange={selectedAllHandler} className='!w-auto' type='checkbox'/>
+                                                                <Input checked={selectedAll}
+                                                                       onChange={selectedAllHandler} className='!w-auto'
+                                                                       type='checkbox'/>
                                                                 <span className=''>
                                                             انتخاب همه
                                                         </span>
@@ -382,7 +384,8 @@ export default function Rules() {
                                                 </table>
                                                 <div className='mt-6 flex gap-6 justify-center'>
                                                     <PrimaryButton className='!w-auto' title='ثبت'/>
-                                                    <SecondaryButton onClick={() => setShowNewRuleContent(false)} title='انصراف'/>
+                                                    <SecondaryButton onClick={() => setShowNewRuleContent(false)}
+                                                                     title='انصراف'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -466,6 +469,11 @@ export default function Rules() {
                 <div className='flex flex-col'>
                     <DataGrid
                         sx={{
+                            '.css-wqp0ve': {
+                                fontFamily: 'IranYekan Bold !important',
+                                fontsize: '15px !important',
+                                color: 'rgb(var(--color-muted)) !important'
+                            },
                             '.MuiDataGrid-columnSeparator': {
                                 display: 'none'
                             },

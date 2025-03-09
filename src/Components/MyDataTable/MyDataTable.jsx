@@ -20,9 +20,19 @@ import "jspdf-autotable";
 import {users, countries as userCountries, roles, plans, images, invoices, statuses} from "../../Utils/Users";
 import React from "react";
 import Content from "../Content/Content";
-import {IconButton, Menu} from "@mui/material";
+import {createTheme, IconButton, Menu} from "@mui/material";
 import MenuAction from "../MenuAction/MenuAction";
 import MyPagination from "../MyPagination/MyPagination";
+
+const theme = createTheme({
+    components: {
+        MuiDataGrid: {
+            styleOverrides: {
+
+            }
+        }
+    }
+})
 
 export default function MyDataTable({ filteredUsers }) {
     const [rows, setRows] = useState(users)
