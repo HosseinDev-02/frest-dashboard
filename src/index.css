@@ -156,6 +156,12 @@
         min-width: 700px;
     }
 
+    .css-3wrmvi-MuiDataGrid-root .css-11cfq65-MuiTablePagination-displayedRows {
+        font-family: IranYekan Bold;
+        fontsize: 15px;
+        color: rgb(var(--color-muted));
+    }
+
     @media screen and (min-width: 1000px) {
         .action-column-header-css,
         .action-column-css {
