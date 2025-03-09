@@ -561,9 +561,9 @@ export default function MyDataTable({ filteredUsers }) {
                             display: 'none'
                         },
                         '.css-11cfq65-MuiTablePagination-displayedRows': {
-                            fontFamily: 'IranYekan Bold',
-                            fontsize: '15px',
-                            color: 'rgb(var(--color-muted))'
+                            fontFamily: 'IranYekan Bold !important',
+                            fontsize: '15px !important',
+                            color: 'rgb(var(--color-muted)) !important'
                         },
                         '.MuiDataGrid-row': {
                             height: 'auto !important',
