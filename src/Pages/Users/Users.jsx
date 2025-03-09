@@ -167,7 +167,7 @@ export default function Users() {
                         </Input>
                     </div>
                 </Box>
-                <MyDataTable filteredUsers={filteredUsers}/>
+                {/*<MyDataTable filteredUsers={filteredUsers}/>*/}
             </div>
         </div>
     )
