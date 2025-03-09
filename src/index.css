@@ -124,7 +124,7 @@
     .column-header-id-css,
     .column-id-css,
     .column-header-progress-css,
-    .column-progress-css{
+    .column-progress-css {
         @apply !hidden
     }
 
@@ -160,6 +160,11 @@
         font-family: IranYekan Bold !important;
         fontsize: 15px !important;
         color: rgb(var(--color-muted)) !important;
+    }
+
+    .css-l45izh {
+        padding: 16px !important;
+        justify-content: space-between !important;
     }
 
     @media screen and (min-width: 1000px) {

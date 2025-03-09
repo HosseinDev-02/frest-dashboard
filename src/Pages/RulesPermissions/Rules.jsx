@@ -533,10 +533,7 @@ export default function Rules() {
                             '.css-1f63zk': {
                                 display: 'none !important'
                             },
-                            '.css-l45izh': {
-                                padding: '16px !important',
-                                justifyContent: 'space-between !important'
-                            }
+
                         }}
                         disableRowSelectionOnClick
                         disableColumnFilter
