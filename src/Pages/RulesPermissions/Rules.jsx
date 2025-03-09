@@ -471,7 +471,7 @@ export default function Rules() {
                         sx={{
                             '.css-wqp0ve': {
                                 fontFamily: 'IranYekan Bold !important',
-                                fontsize: '15px !important',
+                                fontSize: '15px !important',
                                 color: 'rgb(var(--color-muted)) !important'
                             },
                             '.MuiDataGrid-columnSeparator': {
@@ -529,6 +529,12 @@ export default function Rules() {
                             },
                             '.css-1vigakz-MuiDataGrid-virtualScroller': {
                                 overflow: 'visible !important'
+                            },
+                            '.css-1f63zk': {
+                                display: 'none !important'
+                            },
+                            '.css-l45izh': {
+                                padding: '16px !important'
                             }
                         }}
                         disableRowSelectionOnClick
