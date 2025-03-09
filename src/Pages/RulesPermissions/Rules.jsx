@@ -507,6 +507,12 @@ export default function Rules() {
                                 maxHeight: 'none !important',
                                 width: '100% !important'
                             },
+                            '.css-1vouojk': {
+                                height: 'auto !important',
+                                minHeight: 'none !important',
+                                maxHeight: 'none !important',
+                                width: '100% !important'
+                            },
                             '.css-aymtem-MuiDataGrid-virtualScrollerContent': {
                                 flexBasis: 'auto !important',
                                 width: 'auto !important'
