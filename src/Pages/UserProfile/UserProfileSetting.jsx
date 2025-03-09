@@ -372,12 +372,10 @@ export default function UserProfileSetting() {
                         <div className='flex flex-col'>
                             <DataGrid
                                 sx={{
-                                    minHeight: `${getTableHeight()}px`,
-                                    '.MuiDataGrid-columnHeaderCheckbox': {
-                                        height: 'auto !important'
-                                    },
-                                    '.MuiDataGrid-cellCheckbox': {
-                                        height: 'auto !important'
+                                    '.css-wqp0ve': {
+                                        fontFamily: 'IranYekan Bold !important',
+                                        fontSize: '15px !important',
+                                        color: 'rgb(var(--color-muted)) !important'
                                     },
                                     '.MuiDataGrid-columnSeparator': {
                                         display: 'none'
@@ -394,33 +392,38 @@ export default function UserProfileSetting() {
                                     },
                                     '.css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar': {
                                         justifyContent: 'space-between',
+                                        flexDirection: 'column',
                                         padding: '16px 24px !important',
                                         gap: '16px'
                                     },
                                     '.css-1wtxofq-MuiTablePagination-spacer': {
                                         display: 'none'
                                     },
-                                    '.css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions': {
-                                        marginLeft: '0px !important'
-                                    },
                                     '.css-11cfq65-MuiTablePagination-displayedRows': {
                                         fontFamily: 'IranYekan Bold',
                                         fontsize: '15px',
-                                        color: 'rgb(var(--color-muted))',
-                                        display: 'none'
+                                        color: 'rgb(var(--color-muted))'
                                     },
                                     '.MuiDataGrid-row': {
                                         height: 'auto !important',
                                         minHeight: 'none !important',
                                         maxHeight: 'none !important',
-                                        width: '100% !important'
+                                        width: '100% !important',
+                                    },
+                                    '.css-1vouojk': {
+                                        height: 'auto !important',
+                                        minHeight: 'none !important',
+                                        maxHeight: 'none !important',
+                                        width: '100% !important',
+                                        position: 'static !important'
                                     },
                                     '.css-aymtem-MuiDataGrid-virtualScrollerContent': {
                                         flexBasis: 'auto !important',
                                         width: 'auto !important'
                                     },
                                     '.css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone': {
-                                        width: '100% !important'
+                                        width: '100% !important',
+                                        position: 'static'
                                     },
                                     '.MuiDataGrid-cell:focus': {
                                         outline: 'none !important'
@@ -429,23 +432,20 @@ export default function UserProfileSetting() {
                                         backgroundColor: 'transparent !important'
                                     },
                                     '.css-1gtv474-MuiDataGrid-columnHeaders': {
-                                        width: 'auto !important'
+                                        width: '100% !important'
                                     },
                                     '.css-16z8vpz': {
                                         display: 'none !important'
                                     },
-                                    '.MuiDataGrid-selectedRowCount': {
-                                        display: 'none !important'
-                                    },
-                                    '.MuiDataGrid-row.Mui-selected': {
-                                        backgroundColor: 'transparent !important'
-                                    },
-                                    '.css-1bgckiu-MuiDataGrid-main': {
+                                    '.css-1vigakz-MuiDataGrid-virtualScroller': {
                                         overflow: 'visible !important'
                                     },
-                                    '.css-1vigakz-MuiDataGrid-virtualScroller': {
-                                        overflowY: 'hidden !important',
-                                        overflowX: 'scroll !important'
+                                    '.css-1f63zk': {
+                                        display: 'none !important'
+                                    },
+                                    '.css-l45izh': {
+                                        padding: '16px !important',
+                                        justifyContent: 'space-between !important'
                                     }
                                 }}
                                 disableRowSelectionOnClick

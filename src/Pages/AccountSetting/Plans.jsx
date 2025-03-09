@@ -508,7 +508,11 @@ export default function Plans() {
                     <div className='flex flex-col overflow-auto'>
                         <DataGrid
                             sx={{
-                                minWidth: '800px',
+                                '.css-wqp0ve': {
+                                    fontFamily: 'IranYekan Bold !important',
+                                    fontSize: '15px !important',
+                                    color: 'rgb(var(--color-muted)) !important'
+                                },
                                 '.MuiDataGrid-columnSeparator': {
                                     display: 'none'
                                 },
@@ -540,7 +544,14 @@ export default function Plans() {
                                     height: 'auto !important',
                                     minHeight: 'none !important',
                                     maxHeight: 'none !important',
-                                    width: '100% !important'
+                                    width: '100% !important',
+                                },
+                                '.css-1vouojk': {
+                                    height: 'auto !important',
+                                    minHeight: 'none !important',
+                                    maxHeight: 'none !important',
+                                    width: '100% !important',
+                                    position: 'static !important'
                                 },
                                 '.css-aymtem-MuiDataGrid-virtualScrollerContent': {
                                     flexBasis: 'auto !important',
@@ -564,6 +575,13 @@ export default function Plans() {
                                 },
                                 '.css-1vigakz-MuiDataGrid-virtualScroller': {
                                     overflow: 'visible !important'
+                                },
+                                '.css-1f63zk': {
+                                    display: 'none !important'
+                                },
+                                '.css-l45izh': {
+                                    padding: '16px !important',
+                                    justifyContent: 'space-between !important'
                                 }
                             }}
                             disableRowSelectionOnClick

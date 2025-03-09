@@ -38,10 +38,6 @@ const HtmlTooltip = styled(({className, ...props}) => (
     },
 }));
 
-const rowHeight = 72
-const rowHeaderHeight = 60
-const paginationHeight = 70
-
 
 export default function Rules() {
     const [userRules, setUserRules] = useState(rules)
@@ -218,9 +214,6 @@ export default function Rules() {
         } else {
             setRows(invoicesData)
         }
-    }
-    const getTableHeight = () => {
-        return Math.min(rows.length, paginationModal.pageSize) * rowHeight + rowHeaderHeight + paginationHeight
     }
     useEffect(() => {
         if (selectedStatus) {
