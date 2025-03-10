@@ -372,6 +372,9 @@ export default function InvoiceList() {
                             '.css-8t0cmw .MuiDataGrid-columnHeaders': {
                                 width: '100% !important'
                             },
+                            '.css-kq69vq .MuiDataGrid-columnHeaders': {
+                                width: '100% !important'
+                            },
                             '.css-1xdhyk6': {
                                 width: 'auto !important'
                             }
