@@ -368,6 +368,12 @@ export default function InvoiceList() {
                             '.css-l45izh': {
                                 padding: '16px !important',
                                 justifyContent: 'space-between !important'
+                            },
+                            '.css-8t0cmw .MuiDataGrid-columnHeaders': {
+                                width: '100% !important'
+                            },
+                            '.css-1xdhyk6': {
+                                width: 'auto !important'
                             }
                         }}
                         disableRowSelectionOnClick
