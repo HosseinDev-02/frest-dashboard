@@ -255,7 +255,8 @@ export default function Permissions() {
                                 minHeight: 'none !important',
                                 maxHeight: 'none !important',
                                 width: '100% !important',
-                                position: 'static !important'
+                                position: 'static !important',
+                                overflow: 'hidden'
                             },
                             '.css-aymtem-MuiDataGrid-virtualScrollerContent': {
                                 flexBasis: 'auto !important',
@@ -285,25 +286,19 @@ export default function Permissions() {
                             },
                             '.css-l45izh': {
                                 padding: '16px !important',
-                                justifyContent: 'space-between !important'
-                            }
-                        }}
-                        disableRowSelectionOnClick
-                        disableColumnFilter
-                        disableColumnResize
-                        disableColumnMenu
-                        editMode="row"
-                        pagination
-                        initialState={{
-                            pagination: {paginationModel: paginationModal},
-                            sorting: {
-                                sortModel: [
-                                    {
-                                        field: 'id',
-                                        sort: 'asc',
-                                    },
-                                ],
+                                justifyContent: 'space-between !important',
+                                flexWrap: 'wrap',
+                                gap: '20px'
                             },
+                            '.css-8t0cmw .MuiDataGrid-columnHeaders': {
+                                width: '100% !important'
+                            },
+                            '.css-1t374vw': {
+                                width: '100% !important'
+                            },
+                            '.css-1xdhyk6': {
+                                width: 'auto !important'
+                            }
                         }}
                         localeText={{
                             MuiTablePagination: {
