@@ -659,6 +659,9 @@ export default function MyDataTable({ filteredUsers }) {
                     onPaginationModelChange={setPaginationModal}
                     rows={rows}
                     columns={columns}
+                    disableColumnFilter
+                    disableColumnResize
+                    disableColumnMenu
                 />
             </div>
         </div>
