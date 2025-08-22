@@ -1,4 +1,4 @@
 # پنل مدیریتی فرست
 ### پنل مدیریتی ساخته‌شده با React و Tailwind CSS، با رابط کاربری مدرن، واکنش‌گرا و کاربرپسند. شامل مدیریت داده‌ها، جداول و بخش‌های مختلف سیستم.
 آدرس سایت :
-[Frest Dashboard](https://frest-dashboard.vercel.app/)
+[Frest Dashboard](https://hr-frestdashboard.vercel.app/)
