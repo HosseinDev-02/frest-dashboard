@@ -236,4 +236,11 @@
             display: flex !important;
         }
     }
+
+    .page-loader {
+        width: 6rem !important;
+        height: 6rem !important;
+        display: block;
+        margin: auto;
+    }
 }
