@@ -1,3 +1,7 @@
+# پنل مدیریتی فرست
+### پنل مدیریتی ساخته‌شده با React و Tailwind CSS، با رابط کاربری مدرن، واکنش‌گرا و کاربرپسند. شامل مدیریت داده‌ها، جداول و بخش‌های مختلف سیستم.
+آدرس سایت :
+[Frest Dashboard](https://frest-dashboard.vercel.app/)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
