@@ -31,7 +31,6 @@ import Overlay from "../Components/Overlay/Overlay";
 import { Loader } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-
 export default function Index() {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
     const [showTransactionsSubmenu, setShowTransactionsSubmenu] =
@@ -112,14 +111,20 @@ export default function Index() {
             }
         };
         window.addEventListener("keydown", keyDownHandler);
-
         // وقتی کل صفحه (تمام عکس‌ها و فونت‌ها) لود شد
         const handleLoad = () => setLoading(false);
+        const handleDomReady = () => setLoading(false);
 
         window.addEventListener("load", handleLoad);
+        document.addEventListener("DOMContentLoaded", handleDomReady);
+
+        // fallback بعد از 5 ثانیه
+        const timer = setTimeout(() => setLoading(false), 5000);
+
         return () => {
-            window.removeEventListener("keydown", keyDownHandler);
             window.removeEventListener("load", handleLoad);
+            document.removeEventListener("DOMContentLoaded", handleDomReady);
+            clearTimeout(timer);
         };
     }, []);
 
