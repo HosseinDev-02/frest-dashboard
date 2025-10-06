@@ -102,7 +102,7 @@
 
     .column-header-user-css,
     .column-user-css {
-        @apply !basis-auto
+        /* @apply !basis-auto */
     }
 
     .action-column-header-css,
