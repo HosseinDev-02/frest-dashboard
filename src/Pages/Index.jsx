@@ -219,7 +219,7 @@ export default function Index() {
                             <Link
                                 to="/calendar"
                                 className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${
-                                    pathname === "calendar"
+                                    pathname.includes("calendar")
                                         ? "bg-blue text-white"
                                         : "hover:bg-[#2a3645]"
                                 }`}
@@ -241,7 +241,7 @@ export default function Index() {
                             <Link
                                 to="/task-board"
                                 className={`flex items-center gap-2 py-2.5 px-3.5 transition-colors duration-300 rounded-md ${
-                                    pathname === "task-board"
+                                    pathname.includes("task-board")
                                         ? "bg-blue text-white"
                                         : "hover:bg-[#2a3645]"
                                 }`}
