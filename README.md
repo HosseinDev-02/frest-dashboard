@@ -1,5 +1,5 @@
 # Project Name
-Genius Academy
+Frest Dashboard
 
 ## About
 Every business needs a professional admin panel to manage itsactivities.
