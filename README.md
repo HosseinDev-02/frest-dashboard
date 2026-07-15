@@ -88,6 +88,6 @@ src
 ```
 
 ## Live Demo
-[Frest Dashboard](https://frest-dashboard.netlify.app)
+[Frest Dashboard](https://hr-frestdashboard.vercel.app/)
 
 
